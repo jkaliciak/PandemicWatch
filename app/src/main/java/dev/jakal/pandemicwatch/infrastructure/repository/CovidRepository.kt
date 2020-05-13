@@ -68,14 +68,10 @@ class CovidRepository(
     }
 
     fun getGlobalStatsObservable(): Flow<GlobalStats> =
-        keyValueStore.globalStatsObservable.map {
-            it?.toDomain() ?: throw Exception("Global stats not available")
-        }
+        keyValueStore.globalStatsObservable.map { it.toDomain() }
 
     fun getGlobalHistoricalObservable(): Flow<GlobalHistorical> =
-        keyValueStore.globalHistoricalObservable.map {
-            it?.toDomain() ?: throw Exception("Global historical not available")
-        }
+        keyValueStore.globalHistoricalObservable.map { it.toDomain() }
 
     fun getObservableCountries(): Flow<List<Country>> =
         database.countryDao().getAll()

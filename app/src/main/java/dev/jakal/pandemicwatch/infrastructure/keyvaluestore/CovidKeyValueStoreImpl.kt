@@ -30,8 +30,8 @@ class CovidKeyValueStoreImpl(
         mutableSetOf()
     )
     private val scope = CoroutineScope(defaultDispatcher)
-    private val globalStatsChannel = ConflatedBroadcastChannel<GlobalStatsEntity?>()
-    private val globalHistoricalChannel = ConflatedBroadcastChannel<GlobalHistoricalEntity?>()
+    private val globalStatsChannel = ConflatedBroadcastChannel<GlobalStatsEntity>()
+    private val globalHistoricalChannel = ConflatedBroadcastChannel<GlobalHistoricalEntity>()
     private val favoriteCountriesChannel = ConflatedBroadcastChannel<Set<String>>()
 
     override var globalStats: GlobalStatsEntity?
@@ -40,12 +40,12 @@ class CovidKeyValueStoreImpl(
         }
         set(value) {
             scope.launch {
-                globalStatsChannel.send(value)
+                value?.let { globalStatsChannel.send(it) }
             }
             _globalStats = value
         }
 
-    override val globalStatsObservable: Flow<GlobalStatsEntity?>
+    override val globalStatsObservable: Flow<GlobalStatsEntity>
         get() = globalStatsChannel.asFlow()
 
     override var globalHistorical: GlobalHistoricalEntity?
@@ -54,12 +54,12 @@ class CovidKeyValueStoreImpl(
         }
         set(value) {
             scope.launch {
-                globalHistoricalChannel.send(value)
+                value?.let { globalHistoricalChannel.send(it) }
             }
             _globalHistorical = value
         }
 
-    override val globalHistoricalObservable: Flow<GlobalHistoricalEntity?>
+    override val globalHistoricalObservable: Flow<GlobalHistoricalEntity>
         get() = globalHistoricalChannel.asFlow()
 
     override var favoriteCountries: Set<String>
@@ -85,8 +85,8 @@ class CovidKeyValueStoreImpl(
             Context.MODE_PRIVATE
         )
         scope.launch {
-            globalStatsChannel.send(globalStats)
-            globalHistoricalChannel.send(globalHistorical)
+            globalStats?.let { globalStatsChannel.send(it) }
+            globalHistorical?.let { globalHistoricalChannel.send(it) }
             favoriteCountriesChannel.send(favoriteCountries)
         }
     }

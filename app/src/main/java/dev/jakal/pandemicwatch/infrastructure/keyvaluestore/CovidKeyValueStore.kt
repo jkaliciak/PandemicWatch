@@ -8,11 +8,11 @@ interface CovidKeyValueStore {
 
     var globalStats: GlobalStatsEntity?
 
-    val globalStatsObservable: Flow<GlobalStatsEntity?>
+    val globalStatsObservable: Flow<GlobalStatsEntity>
 
     var globalHistorical: GlobalHistoricalEntity?
 
-    val globalHistoricalObservable: Flow<GlobalHistoricalEntity?>
+    val globalHistoricalObservable: Flow<GlobalHistoricalEntity>
 
     var favoriteCountries: Set<String>
 
