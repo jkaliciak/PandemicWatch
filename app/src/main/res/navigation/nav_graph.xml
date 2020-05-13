@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/overviewFragment">
+
+    <fragment
+        android:id="@+id/overviewFragment"
+        android:name="dev.jakal.pandemicwatch.presentation.overview.OverviewFragment"
+        android:label="@string/screen_title_overview"
+        tools:layout="@layout/fragment_overview" >
+        <action
+            android:id="@+id/showLineChart"
+            app:destination="@id/lineChartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/countryListFragment"
+        android:name="dev.jakal.pandemicwatch.presentation.countrylist.CountryListFragment"
+        android:label="@string/screen_title_country_list"
+        tools:layout="@layout/fragment_country_list">
+        <action
+            android:id="@+id/showCountry"
+            app:destination="@id/countryDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/countryDetailsFragment"
+        android:name="dev.jakal.pandemicwatch.presentation.countrydetails.CountryDetailsFragment"
+        android:label="@string/screen_title_country"
+        tools:layout="@layout/fragment_country_details">
+        <argument
+            android:name="countryName"
+            app:argType="string" />
+        <action
+            android:id="@+id/showLineChart"
+            app:destination="@id/lineChartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lineChartFragment"
+        android:name="dev.jakal.pandemicwatch.presentation.linechart.LineChartFragment"
+        android:label="@string/screen_title_line_chart"
+        tools:layout="@layout/fragment_line_chart">
+        <argument
+            android:name="lineChartConfig"
+            app:argType="dev.jakal.pandemicwatch.presentation.linechart.LineChartConfig" />
+    </fragment>
+
+</navigation>
+
+    <!--    app:enterAnim="@anim/slide_in_right"-->
+    <!--    app:exitAnim="@anim/slide_out_left"-->
+    <!--    app:popEnterAnim="@anim/slide_in_left"-->
+    <!--    app:popExitAnim="@anim/slide_out_right"-->

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="dev.jakal.pandemicwatch.presentation.countrydetails.CountryDetailsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvCountryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/country_details_country_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContinentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:text="@string/country_details_continent_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barrierHorizontal"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="tvCountryLabel,tvContinentLabel"
+            tools:layout_editor_absoluteX="101dp" />
+
+        <TextView
+            android:id="@+id/tvCountry"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginEnd="39dp"
+            android:text="@{viewmodel.country.country}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            android:transitionName="@{@string/transition_country_name(viewmodel.country.country)}"
+            app:layout_constraintEnd_toStartOf="@+id/ivCountryFlag"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvCountryLabel"
+            tools:text="Poland" />
+
+        <TextView
+            android:id="@+id/tvContinent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginEnd="39dp"
+            android:text="@{viewmodel.country.continent}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toStartOf="@+id/ivCountryFlag"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvContinentLabel"
+            tools:text="Europe" />
+
+        <ImageView
+            android:id="@+id/ivCountryFlag"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:contentDescription="@string/country_list_country_flag_content_description"
+            android:transitionName="@{@string/transition_country_flag(viewmodel.country.country)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvCountryLabel"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tvCountryLabel,tvCountry"
+            tools:layout_editor_absoluteY="35dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

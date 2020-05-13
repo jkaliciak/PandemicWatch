@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">PandemicWatch</string>
+
+    <!-- Screen titles -->
+    <string name="screen_title_overview">Overview</string>
+    <string name="screen_title_country_list">Countries</string>
+    <string name="screen_title_ranking">Ranking</string>
+    <string name="screen_title_country">Country</string>
+    <string name="screen_title_line_chart">Line chart</string>
+
+    <!-- Overview screen -->
+    <string name="overview_updated_label">Updated:</string>
+    <string name="overview_affected_countries_label">Affected countries:</string>
+    <string name="overview_cases_label">Cases:</string>
+    <string name="overview_deaths_label">Deaths:</string>
+    <string name="overview_recovered_label">Recovered:</string>
+    <string name="overview_active_label">Active:</string>
+    <string name="overview_critical_label">Critical:</string>
+    <string name="overview_tests_label">Tests:</string>
+    <string name="overview_main_section_label">Total</string>
+    <string name="overview_today_section_label">Today</string>
+    <string name="overview_per_mln_section_label">Per million</string>
+
+    <!-- Country details screen -->
+    <string name="country_details_country_label">Country:</string>
+    <string name="country_details_continent_label">Continent:</string>
+    <string name="country_details_cases_chart_label">Cases chart</string>
+    <string name="country_details_deaths_chart_label">Deaths chart</string>
+    <string name="country_details_recovered_chart_label">Recovered chart</string>
+
+    <!-- Country list screen -->
+    <string name="country_list_country_flag_content_description">Country flag</string>
+    <string name="message_content_not_initialized">Loading initial data</string>
+    <string name="menu_item_add_to_favorites">Add to favorites</string>
+    <string name="menu_item_remove_from_favorites">Remove from favorites</string>
+</resources>

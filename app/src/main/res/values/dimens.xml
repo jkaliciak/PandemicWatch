@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="elevation_toolbar">2dp</dimen>
+    <dimen name="elevation_default">2dp</dimen>
+
+    <dimen name="spacing_medium">8dp</dimen>
+
+    <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="spacing_big">16dp</dimen>
+</resources>

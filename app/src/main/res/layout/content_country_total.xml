@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="dev.jakal.pandemicwatch.presentation.countrydetails.CountryDetailsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvSectionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:text="@string/overview_main_section_label"
+            android:textAppearance="@style/TextAppearance.Section"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUpdatedLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:text="@string/overview_updated_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTestsLabel"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tvCasesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/overview_cases_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSectionLabel" />
+
+        <TextView
+            android:id="@+id/tvDeathsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/overview_deaths_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCasesLabel" />
+
+        <TextView
+            android:id="@+id/tvRecoveredLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/overview_recovered_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeathsLabel" />
+
+        <TextView
+            android:id="@+id/tvActiveLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/overview_active_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRecoveredLabel" />
+
+        <TextView
+            android:id="@+id/tvCriticalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/overview_critical_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvActiveLabel" />
+
+        <TextView
+            android:id="@+id/tvTestsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/overview_tests_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCriticalLabel" />
+
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="tvTestsLabel,tvCriticalLabel,tvActiveLabel,tvRecoveredLabel,tvDeathsLabel,tvUpdatedLabel,tvCasesLabel"
+            tools:layout_editor_absoluteX="188dp" />
+
+        <TextView
+            android:id="@+id/tvCases"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.country.cases}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvCasesLabel"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/tvDeaths"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.country.deaths}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvDeathsLabel"
+            tools:text="2" />
+
+        <TextView
+            android:id="@+id/tvRecovered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.country.recovered}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvRecoveredLabel"
+            tools:text="3" />
+
+        <TextView
+            android:id="@+id/tvActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.country.active}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvActiveLabel"
+            tools:text="4" />
+
+        <TextView
+            android:id="@+id/tvCritical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.country.critical}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvCriticalLabel"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/tvTests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.country.tests}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvTestsLabel"
+            tools:text="6" />
+
+        <TextView
+            android:id="@+id/tvUpdated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.country.updated}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvUpdatedLabel"
+            tools:text="13" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

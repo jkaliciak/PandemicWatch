@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="dev.jakal.pandemicwatch.presentation.overview.OverviewViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvSectionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:text="@string/overview_per_mln_section_label"
+            android:textAppearance="@style/TextAppearance.Section"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCasesPerMlnLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/overview_cases_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSectionLabel" />
+
+        <TextView
+            android:id="@+id/tvDeathsPerMlnLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/overview_deaths_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCasesPerMlnLabel" />
+
+        <TextView
+            android:id="@+id/tvTestsPerMlnLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:text="@string/overview_tests_label"
+            android:textAppearance="@style/TextAppearance.Label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeathsPerMlnLabel"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids=",tvCasesPerMlnLabel,tvDeathsPerMlnLabel,tvTestsPerMlnLabel" />
+
+        <TextView
+            android:id="@+id/tvCasesPerMln"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.globalStats.casesPerOneMillion}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvCasesPerMlnLabel"
+            tools:text="9" />
+
+        <TextView
+            android:id="@+id/tvDeathsPerMln"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.globalStats.deathsPerOneMillion}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvDeathsPerMlnLabel"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/tvTestsPerMln"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@{viewmodel.globalStats.testsPerOneMillion}"
+            android:textAppearance="@style/TextAppearance.LabelContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barrierVertical"
+            app:layout_constraintTop_toTopOf="@+id/tvTestsPerMlnLabel"
+            tools:text="11" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
