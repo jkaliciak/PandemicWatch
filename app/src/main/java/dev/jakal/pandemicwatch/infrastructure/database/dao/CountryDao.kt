@@ -19,6 +19,9 @@ interface CountryDao {
     @Query("SELECT * FROM country WHERE country.country LIKE :countryName")
     fun getByCountryName(countryName: String): Flow<CountryEntity>
 
+    @Query("SELECT * FROM country WHERE country.country IN (:countryNames)")
+    fun getAllByCountryName(countryNames: List<String>): Flow<List<CountryEntity>>
+
     @Query("SELECT * FROM country")
     fun getAll(): Flow<List<CountryEntity>>
 

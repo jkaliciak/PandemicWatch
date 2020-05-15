@@ -13,6 +13,7 @@ import dev.jakal.pandemicwatch.infrastructure.network.novelcovidapi.model.*
 import dev.jakal.pandemicwatch.infrastructure.network.novelcovidapi.service.NovelCovidAPIService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 
 class CovidRepository(
@@ -106,4 +107,40 @@ class CovidRepository(
             keyValueStore.favoriteCountries = favoriteCountries.filter { it != countryName }.toSet()
         }
     }
+
+    fun getObservableComparisonCountries(): Flow<List<Country>> =
+        keyValueStore.comparisonCountriesObservable.flatMapLatest {
+            database.countryDao().getAllByCountryName(it.toList())
+        }.map { it.toDomain() }
+
+    // TODO
+//    fun getObservableComparisonHistorical(): Flow<List<CountryHistorical>> =
+//        keyValueStore.comparisonCountriesObservable.flatMapLatest {
+//            database.countryHistoricalDao().
+//        }
+
+    fun addCountryToComparison(countryName: String) {
+        val comparisonCountries = keyValueStore.comparisonCountries
+        if (!comparisonCountries.contains(countryName)) {
+            keyValueStore.comparisonCountries = comparisonCountries.plus(countryName)
+        }
+    }
+
+    fun removeCountryFromComparison(countryName: String) {
+        val comparisonCountries = keyValueStore.comparisonCountries
+        if (comparisonCountries.contains(countryName)) {
+            keyValueStore.comparisonCountries =
+                comparisonCountries.filter { it != countryName }.toSet()
+        }
+    }
+
+    fun resetComparisonCountries() {
+        keyValueStore.comparisonCountries = emptySet()
+    }
+
+    fun getObservableAvailableComparisonCountries(): Flow<List<Country>> =
+        database.countryDao().getAll()
+            .combine(keyValueStore.comparisonCountriesObservable) { countries, comparisonCountries ->
+                countries.filter { !comparisonCountries.contains(it.country) }
+            }.map { it.toDomain() }
 }

@@ -1,6 +1,7 @@
 package dev.jakal.pandemicwatch.domain.model
 
 import dev.jakal.pandemicwatch.common.utils.toDateTimeFormat
+import dev.jakal.pandemicwatch.presentation.comparison.ComparisonPresentation
 import dev.jakal.pandemicwatch.presentation.countrydetails.CountryPresentation
 import dev.jakal.pandemicwatch.presentation.countrylist.CountryListPresentation
 import org.threeten.bp.LocalDateTime

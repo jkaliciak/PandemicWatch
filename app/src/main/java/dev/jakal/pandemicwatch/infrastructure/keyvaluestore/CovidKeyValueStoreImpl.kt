@@ -29,10 +29,15 @@ class CovidKeyValueStoreImpl(
         "key_favorite_countries",
         mutableSetOf()
     )
+    private var _comparisonCountries: Set<String> by stringSetPref(
+        "key_comparison_countries",
+        mutableSetOf()
+    )
     private val scope = CoroutineScope(defaultDispatcher)
     private val globalStatsChannel = ConflatedBroadcastChannel<GlobalStatsEntity>()
     private val globalHistoricalChannel = ConflatedBroadcastChannel<GlobalHistoricalEntity>()
     private val favoriteCountriesChannel = ConflatedBroadcastChannel<Set<String>>()
+    private val comparisonCountriesChannel = ConflatedBroadcastChannel<Set<String>>()
 
     override var globalStats: GlobalStatsEntity?
         get() {
@@ -76,6 +81,20 @@ class CovidKeyValueStoreImpl(
     override val favoriteCountriesObservable: Flow<Set<String>>
         get() = favoriteCountriesChannel.asFlow()
 
+    override var comparisonCountries: Set<String>
+        get() {
+            return _comparisonCountries
+        }
+        set(value) {
+            scope.launch {
+                comparisonCountriesChannel.send(value)
+            }
+            _comparisonCountries = value
+        }
+
+    override val comparisonCountriesObservable: Flow<Set<String>>
+        get() = comparisonCountriesChannel.asFlow()
+
     override val sharedPreferences: SharedPreferences
 
     init {
@@ -88,12 +107,16 @@ class CovidKeyValueStoreImpl(
             globalStats?.let { globalStatsChannel.send(it) }
             globalHistorical?.let { globalHistoricalChannel.send(it) }
             favoriteCountriesChannel.send(favoriteCountries)
+            comparisonCountriesChannel.send(comparisonCountries)
         }
     }
 
     internal fun cleanup() {
         scope.cancel()
         globalStatsChannel.close()
+        globalHistoricalChannel.close()
+        favoriteCountriesChannel.close()
+        comparisonCountriesChannel.close()
     }
 }
 

@@ -9,7 +9,7 @@
         android:id="@+id/overviewFragment"
         android:name="dev.jakal.pandemicwatch.presentation.overview.OverviewFragment"
         android:label="@string/screen_title_overview"
-        tools:layout="@layout/fragment_overview" >
+        tools:layout="@layout/fragment_overview">
         <action
             android:id="@+id/showLineChart"
             app:destination="@id/lineChartFragment" />
@@ -44,6 +44,20 @@
             android:name="lineChartConfig"
             app:argType="dev.jakal.pandemicwatch.presentation.linechart.LineChartConfig" />
     </fragment>
+    <fragment
+        android:id="@+id/createComparisonFragment"
+        android:name="dev.jakal.pandemicwatch.presentation.comparison.createcomparison.CreateComparisonFragment"
+        android:label="@string/screen_title_create_comparison"
+        tools:layout="@layout/fragment_create_comparison">
+        <action
+            android:id="@+id/showAddCountryToComparison"
+            app:destination="@id/addCountryToComparisonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCountryToComparisonFragment"
+        android:name="dev.jakal.pandemicwatch.presentation.comparison.addcountrytocomparison.AddCountryToComparisonFragment"
+        android:label="@string/screen_title_add_country_to_comparison"
+        tools:layout="@layout/fragment_add_country_to_comparison" />
 
 </navigation>
 

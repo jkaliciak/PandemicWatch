@@ -17,4 +17,8 @@ interface CovidKeyValueStore {
     var favoriteCountries: Set<String>
 
     val favoriteCountriesObservable: Flow<Set<String>>
+
+    var comparisonCountries: Set<String>
+
+    val comparisonCountriesObservable: Flow<Set<String>>
 }
