@@ -11,8 +11,8 @@
         android:icon="@drawable/ic_menu_countries_24"
         android:title="@string/screen_title_country_list" />
     <item
-        android:id="@+id/action_todo"
-        android:enabled="false"
-        android:icon="@drawable/ic_menu_rankings_24"
-        android:title="@string/screen_title_ranking" />
+        android:id="@+id/createComparisonFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu_comparison_24"
+        android:title="@string/screen_title_create_comparison" />
 </menu>

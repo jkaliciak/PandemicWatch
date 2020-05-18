@@ -2,11 +2,11 @@ package dev.jakal.pandemicwatch.infrastructure.network.novelcovidapi.model
 
 import com.squareup.moshi.JsonClass
 import dev.jakal.pandemicwatch.common.utils.toLocalDateFromNovelCovidAPIDate
-import dev.jakal.pandemicwatch.domain.model.GlobalHistorical
+import dev.jakal.pandemicwatch.domain.model.GlobalHistory
 import dev.jakal.pandemicwatch.domain.model.Timeline
 import dev.jakal.pandemicwatch.infrastructure.database.model.TimelineEntity
 import dev.jakal.pandemicwatch.infrastructure.database.model.TimelineType
-import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalHistoricalEntity
+import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalHistoryEntity
 
 @JsonClass(generateAdapter = true)
 data class TimelineNetwork(
@@ -37,15 +37,15 @@ private fun Map.Entry<String, Int>.toTimelineEntity(country: String, timelineTyp
         timelineType
     )
 
-fun TimelineNetwork.toGlobalHistoricalEntity() =
-    GlobalHistoricalEntity(
+fun TimelineNetwork.toGlobalHistoryEntity() =
+    GlobalHistoryEntity(
         cases = cases,
         deaths = deaths,
         recovered = recovered
     )
 
-fun TimelineNetwork.toGlobalHistoricalDomain() =
-    GlobalHistorical(
+fun TimelineNetwork.toGlobalHistoryDomain() =
+    GlobalHistory(
         cases = cases.map { it.key.toLocalDateFromNovelCovidAPIDate() to it.value }.toMap(),
         deaths = deaths.map { it.key.toLocalDateFromNovelCovidAPIDate() to it.value }.toMap(),
         recovered = recovered.map { it.key.toLocalDateFromNovelCovidAPIDate() to it.value }.toMap()

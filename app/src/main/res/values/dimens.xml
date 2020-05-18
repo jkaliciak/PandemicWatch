@@ -8,4 +8,5 @@
 
     <dimen name="text_size_medium">20sp</dimen>
     <dimen name="spacing_big">16dp</dimen>
+    <dimen name="defaultChartHeight">150dp</dimen>
 </resources>

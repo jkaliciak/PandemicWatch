@@ -1,4 +1,4 @@
-package dev.jakal.pandemicwatch.presentation.countrylist
+package dev.jakal.pandemicwatch.presentation.common.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,7 +13,8 @@ import dev.jakal.pandemicwatch.domain.model.Country
 import dev.jakal.pandemicwatch.presentation.common.load
 
 class CountriesAdapter(
-    private val onClickListener: (countryName: String, ivCountryFlag: ImageView, tvCountryName: TextView, cardView: MaterialCardView) -> Unit
+    private val onClickListener: (countryName: String, ivCountryFlag: ImageView, tvCountryName: TextView, cardView: MaterialCardView) -> Unit,
+    private val sortingComparator: Comparator<Country>? = null
 ) : ListAdapter<Country, CountryViewHolder>(CountryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder =
@@ -30,18 +31,9 @@ class CountriesAdapter(
 
     override fun submitList(list: MutableList<Country>?) {
         super.submitList(
-            list?.sortedWith(
-                Comparator { c1, c2 ->
-                    if (c1.favorite && c2.favorite) {
-                        c1.country.compareTo(c2.country)
-                    } else if (c1.favorite && !c2.favorite) {
-                        -1
-                    } else if (!c1.favorite && c2.favorite) {
-                        1
-                    } else {
-                        c1.country.compareTo(c2.country)
-                    }
-                })
+            sortingComparator?.let {
+                list?.sortedWith(it)
+            } ?: list
         )
     }
 }

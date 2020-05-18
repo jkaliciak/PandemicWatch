@@ -2,9 +2,9 @@ package dev.jakal.pandemicwatch.infrastructure.workmanager
 
 import android.content.Context
 import androidx.work.*
-import dev.jakal.pandemicwatch.domain.usecase.common.UpdateCountriesHistoricalUseCase
+import dev.jakal.pandemicwatch.domain.usecase.common.UpdateCountriesHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.common.UpdateCountriesUseCase
-import dev.jakal.pandemicwatch.domain.usecase.common.UpdateGlobalHistoricalUseCase
+import dev.jakal.pandemicwatch.domain.usecase.common.UpdateGlobalHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.common.UpdateGlobalStatsUseCase
 import kotlinx.coroutines.coroutineScope
 import org.koin.core.KoinComponent
@@ -16,17 +16,17 @@ class UpdateAllDataWorker(context: Context, params: WorkerParameters) :
     CoroutineWorker(context, params), KoinComponent {
 
     private val updateGlobalStatsUseCase: UpdateGlobalStatsUseCase by inject()
-    private val updateGlobalHistoricalUseCase: UpdateGlobalHistoricalUseCase by inject()
+    private val updateGlobalHistoryUseCase: UpdateGlobalHistoryUseCase by inject()
     private val updateCountriesUseCase: UpdateCountriesUseCase by inject()
-    private val updateCountriesHistoricalUseCase: UpdateCountriesHistoricalUseCase by inject()
+    private val updateCountriesHistoryUseCase: UpdateCountriesHistoryUseCase by inject()
 
     override suspend fun doWork(): Result = coroutineScope {
         // TODO maybe enqueue a separate worker for each update usecase
         val results = listOf(
             updateGlobalStatsUseCase(Unit),
-            updateGlobalHistoricalUseCase(Unit),
+            updateGlobalHistoryUseCase(Unit),
             updateCountriesUseCase(Unit),
-            updateCountriesHistoricalUseCase(Unit)
+            updateCountriesHistoryUseCase(Unit)
         )
         if (results.any { it is UseCaseResult.Error }) {
             Result.retry()

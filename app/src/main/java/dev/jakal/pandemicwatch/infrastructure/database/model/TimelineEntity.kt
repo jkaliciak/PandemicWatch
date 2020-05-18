@@ -10,7 +10,7 @@ import org.threeten.bp.LocalDate
 data class TimelineEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     @ForeignKey(
-        entity = CountryHistoricalEntity::class,
+        entity = CountryHistoryEntity::class,
         parentColumns = ["country"],
         childColumns = ["country"],
         onDelete = ForeignKey.CASCADE

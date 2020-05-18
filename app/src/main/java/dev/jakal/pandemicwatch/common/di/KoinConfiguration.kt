@@ -11,5 +11,6 @@ val allModules = listOf(
     overviewModule,
     countryListModule,
     countryDetailsModule,
-    lineChartModule
+    lineChartModule,
+    comparisonModule
 )

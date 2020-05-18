@@ -16,8 +16,8 @@ class CountryDetailsViewModel(
     private val countryName: String,
     private val updateCountryUseCase: UpdateCountryUseCase,
     private val loadCountryUseCase: LoadCountryUseCase,
-    private val updateCountryHistoricalUseCase: UpdateCountryHistoricalUseCase,
-    private val loadCountryHistoricalUseCase: LoadCountryHistoricalUseCase,
+    private val updateCountryHistoryUseCase: UpdateCountryHistoryUseCase,
+    private val loadCountryHistoryUseCase: LoadCountryHistoryUseCase,
     private val addCountryToFavoritesUseCase: AddCountryToFavoritesUseCase,
     private val removeCountryFromFavoritesUseCase: RemoveCountryFromFavoritesUseCase
 ) : ViewModel() {
@@ -26,9 +26,9 @@ class CountryDetailsViewModel(
         get() = _country
     private val _country = MutableLiveData<CountryPresentation>()
 
-    val countryHistorical: LiveData<CountryHistoricalPresentation>
-        get() = _countryHistorical
-    private val _countryHistorical = MutableLiveData<CountryHistoricalPresentation>()
+    val countryHistory: LiveData<CountryHistoryPresentation>
+        get() = _countryHistory
+    private val _countryHistory = MutableLiveData<CountryHistoryPresentation>()
 
     val refreshing: LiveData<Boolean>
         get() = _refreshing
@@ -42,7 +42,7 @@ class CountryDetailsViewModel(
         refreshCountry()
 
         viewModelScope.launch {
-            loadCountryHistoricalUseCase(LoadCountryHistoricalParameters(countryName))
+            loadCountryHistoryUseCase(LoadCountryHistoryParameters(countryName))
                 .combine(loadCountryUseCase(LoadCountryParameters(countryName))) { country, countryHistorical ->
                     countryHistorical to country
                 }.collect {
@@ -57,7 +57,7 @@ class CountryDetailsViewModel(
                     }
                     when (countryHistorical) {
                         is Result.Success -> {
-                            _countryHistorical.value = countryHistorical.data.toPresentation()
+                            _countryHistory.value = countryHistorical.data.toPresentation()
                             _initializing.value = false
                         }
                         is Result.Error -> handleError(countryHistorical.exception)
@@ -71,7 +71,7 @@ class CountryDetailsViewModel(
             _refreshing.value = true
             updateCountryUseCase(UpdateCountryParameters(countryName))
                 .onError { handleError(it.exception) }
-            updateCountryHistoricalUseCase(UpdateCountryHistoricalParameters(countryName))
+            updateCountryHistoryUseCase(UpdateCountryHistoryParameters(countryName))
                 .onError { handleError(it.exception) }
             _refreshing.value = false
         }

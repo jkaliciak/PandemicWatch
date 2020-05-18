@@ -26,13 +26,13 @@ val countryDetailsModule = module {
             )
         }
         scoped {
-            LoadCountryHistoricalUseCase(
+            LoadCountryHistoryUseCase(
                 get(),
                 Dispatchers.Default
             )
         }
         scoped {
-            UpdateCountryHistoricalUseCase(
+            UpdateCountryHistoryUseCase(
                 get(),
                 Dispatchers.Default
             )

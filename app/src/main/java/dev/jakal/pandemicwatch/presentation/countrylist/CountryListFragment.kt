@@ -4,11 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.card.MaterialCardView
 import dev.jakal.pandemicwatch.databinding.FragmentCountryListBinding
+import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
+import dev.jakal.pandemicwatch.presentation.countrydetails.FavoriteCountriesComparator
 import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -17,7 +22,7 @@ class CountryListFragment : Fragment() {
 
     private val viewModel: CountryListViewModel by viewModel { parametersOf(lifecycleScope.id) }
     private lateinit var binding: FragmentCountryListBinding
-    private lateinit var countriesAdapter: CountriesAdapter
+    private lateinit var adapter: CountriesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +44,8 @@ class CountryListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        countriesAdapter =
-            CountriesAdapter { countryName, ivCountryFlag, tvCountryName, cardView ->
+        adapter = CountriesAdapter(
+            onClickListener = { countryName: String, ivCountryFlag: ImageView, tvCountryName: TextView, cardView: MaterialCardView ->
                 findNavController().navigate(
                     CountryListFragmentDirections.showCountry(countryName),
                     FragmentNavigatorExtras(
@@ -49,11 +54,12 @@ class CountryListFragment : Fragment() {
                         cardView to cardView.transitionName
                     )
                 )
-            }
+            },
+            sortingComparator = FavoriteCountriesComparator()
+        )
         postponeEnterTransition()
         binding.rvCountries.apply {
-//            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            adapter = countriesAdapter
+            adapter = this@CountryListFragment.adapter
             viewTreeObserver.addOnPreDrawListener {
                 startPostponedEnterTransition()
                 true
@@ -70,7 +76,7 @@ class CountryListFragment : Fragment() {
 
     private fun observeCountries() {
         viewModel.countries.observe(viewLifecycleOwner, Observer {
-            countriesAdapter.submitList(it.countries.toMutableList())
+            adapter.submitList(it.countries.toMutableList())
         })
     }
 }

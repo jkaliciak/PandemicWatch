@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuAddToComparison"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_add_24"
+        android:title="@string/menu_item_add_to_comparison" />
+    <item
+        android:id="@+id/menuResetComparison"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_delete_sweep_24"
+        android:title="@string/menu_item_reset_comparison" />
+</menu>

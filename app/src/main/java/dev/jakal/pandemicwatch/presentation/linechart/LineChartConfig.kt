@@ -2,13 +2,11 @@ package dev.jakal.pandemicwatch.presentation.linechart
 
 import android.os.Parcelable
 import androidx.annotation.ColorRes
-import com.github.mikephil.charting.data.Entry
 import dev.jakal.pandemicwatch.R
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class LineChartConfig(
-    val entries: List<Entry> = emptyList(),
     @ColorRes
     val foregroundColor: Int,
     @ColorRes
@@ -18,7 +16,9 @@ data class LineChartConfig(
     @ColorRes
     val onBackgroundColor: Int,
     val touchEnabled: Boolean = false,
-    val animationDuration: Int = 0
+    val animationDuration: Int = 0,
+    val legendEnabled: Boolean = false,
+    val fillEnabled: Boolean = true
 ) : Parcelable {
 
     companion object {
