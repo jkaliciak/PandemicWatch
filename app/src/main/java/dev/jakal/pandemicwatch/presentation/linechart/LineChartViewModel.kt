@@ -5,10 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class LineChartViewModel(
-    private val data: LineChartConfig
+    chartConfig: LineChartConfig,
+    lineDataConfigs: Array<LineDataConfig>
 ) : ViewModel() {
 
-    val lineChartConfig: LiveData<LineChartConfig>
-        get() = _lineChartData
-    private val _lineChartData = MutableLiveData(data)
+    val lineChart: LiveData<LineChartPresentation>
+        get() = _lineChart
+    private val _lineChart = MutableLiveData(LineChartPresentation(chartConfig, lineDataConfigs))
 }

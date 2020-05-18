@@ -2,8 +2,8 @@ package dev.jakal.pandemicwatch.infrastructure.repository
 
 import androidx.room.withTransaction
 import dev.jakal.pandemicwatch.domain.model.Country
-import dev.jakal.pandemicwatch.domain.model.CountryHistorical
-import dev.jakal.pandemicwatch.domain.model.GlobalHistorical
+import dev.jakal.pandemicwatch.domain.model.CountryHistory
+import dev.jakal.pandemicwatch.domain.model.GlobalHistory
 import dev.jakal.pandemicwatch.domain.model.GlobalStats
 import dev.jakal.pandemicwatch.infrastructure.database.CovidDatabase
 import dev.jakal.pandemicwatch.infrastructure.database.model.toDomain
@@ -21,17 +21,39 @@ class CovidRepository(
     private val database: CovidDatabase,
     private val keyValueStore: CovidKeyValueStore
 ) {
+
+    // global stats
+    fun getGlobalStatsObservable(): Flow<GlobalStats> =
+        keyValueStore.globalStatsObservable.map { it.toDomain() }
+
     suspend fun updateGlobalStats(): GlobalStats {
         val globalStatsNetwork = apiService.getGlobalStats()
         keyValueStore.globalStats = globalStatsNetwork.toEntity()
         return globalStatsNetwork.toDomain()
     }
 
-    suspend fun updateGlobalHistorical(): GlobalHistorical {
+    // global history
+    fun getGlobalHistoryObservable(): Flow<GlobalHistory> =
+        keyValueStore.globalHistoryObservable.map { it.toDomain() }
+
+    suspend fun updateGlobalHistory(): GlobalHistory {
         val timelineNetwork = apiService.getGlobalHistorical()
-        keyValueStore.globalHistorical = timelineNetwork.toGlobalHistoricalEntity()
-        return timelineNetwork.toGlobalHistoricalDomain()
+        keyValueStore.globalHistory = timelineNetwork.toGlobalHistoryEntity()
+        return timelineNetwork.toGlobalHistoryDomain()
     }
+
+    // country
+    fun getObservableCountries(): Flow<List<Country>> =
+        database.countryDao().getAll()
+            .combine(keyValueStore.favoriteCountriesObservable) { countries, favorites ->
+                countries.map { it.toDomain(favorites.contains(it.country)) }
+            }
+
+    fun getObservableCountry(countryName: String): Flow<Country> =
+        database.countryDao().getByCountryName(countryName)
+            .combine(keyValueStore.favoriteCountriesObservable) { country, favorites ->
+                country.toDomain(favorites.contains(country.country))
+            }
 
     suspend fun updateCountries(): List<Country> {
         val countriesNetwork = apiService.getCountries()
@@ -48,52 +70,36 @@ class CovidRepository(
         return countryNetwork.toDomain()
     }
 
-    suspend fun updateCountriesHistorical(): List<CountryHistorical> {
+    // country history
+    fun getObservableHistory(countryName: String): Flow<CountryHistory> =
+        database.countryHistoryDao().getCountryHistoryAndTimeline(countryName)
+            .map { it.toDomain() }
+
+    fun getObservableHistory(): Flow<List<CountryHistory>> =
+        database.countryHistoryDao().getAllCountryHistoryAndTimeline()
+            .map { it.toDomain() }
+
+    suspend fun updateCountriesHistory(): List<CountryHistory> {
         val historicalNetwork = apiService.getHistorical()
         database.withTransaction {
-            database.countryHistoricalDao().deleteAll()
+            database.countryHistoryDao().deleteAll()
             database.timelineDao().deleteAll()
-            database.countryHistoricalDao().insert(historicalNetwork.toEntity())
+            database.countryHistoryDao().insert(historicalNetwork.toEntity())
             database.timelineDao().insert(historicalNetwork.toTimelineEntity())
         }
         return historicalNetwork.toDomain()
     }
 
-    suspend fun updateCountryHistorical(countryName: String): CountryHistorical {
+    suspend fun updateCountryHistory(countryName: String): CountryHistory {
         val historicalNetwork = apiService.getHistorical(countryName)
         database.withTransaction {
-            database.countryHistoricalDao().insert(historicalNetwork.toEntity())
+            database.countryHistoryDao().insert(historicalNetwork.toEntity())
             database.timelineDao().insert(historicalNetwork.toTimelineEntity())
         }
         return historicalNetwork.toDomain()
     }
 
-    fun getGlobalStatsObservable(): Flow<GlobalStats> =
-        keyValueStore.globalStatsObservable.map { it.toDomain() }
-
-    fun getGlobalHistoricalObservable(): Flow<GlobalHistorical> =
-        keyValueStore.globalHistoricalObservable.map { it.toDomain() }
-
-    fun getObservableCountries(): Flow<List<Country>> =
-        database.countryDao().getAll()
-            .combine(keyValueStore.favoriteCountriesObservable) { countries, favorites ->
-                countries.map { it.toDomain(favorites.contains(it.country)) }
-            }
-
-    fun getObservableCountry(countryName: String): Flow<Country> =
-        database.countryDao().getByCountryName(countryName)
-            .combine(keyValueStore.favoriteCountriesObservable) { country, favorites ->
-                country.toDomain(favorites.contains(country.country))
-            }
-
-    fun getObservableHistorical(countryName: String): Flow<CountryHistorical> =
-        database.countryHistoricalDao().getCountryHistoricalAndTimeline(countryName)
-            .map { it.toDomain() }
-
-    fun getObservableHistorical(): Flow<List<CountryHistorical>> =
-        database.countryHistoricalDao().getAllCountryHistoricalAndTimeline()
-            .map { it.toDomain() }
-
+    // favorites
     fun addCountryToFavorites(countryName: String) {
         val favoriteCountries = keyValueStore.favoriteCountries
         if (!favoriteCountries.contains(countryName)) {
@@ -108,16 +114,22 @@ class CovidRepository(
         }
     }
 
+    // comparison
     fun getObservableComparisonCountries(): Flow<List<Country>> =
         keyValueStore.comparisonCountriesObservable.flatMapLatest {
             database.countryDao().getAllByCountryName(it.toList())
         }.map { it.toDomain() }
 
-    // TODO
-//    fun getObservableComparisonHistorical(): Flow<List<CountryHistorical>> =
-//        keyValueStore.comparisonCountriesObservable.flatMapLatest {
-//            database.countryHistoricalDao().
-//        }
+    fun getObservableAvailableComparisonCountries(): Flow<List<Country>> =
+        database.countryDao().getAll()
+            .combine(keyValueStore.comparisonCountriesObservable) { countries, comparisonCountries ->
+                countries.filter { !comparisonCountries.contains(it.country) }
+            }.map { it.toDomain() }
+
+    fun getObservableComparisonCountriesHistory(): Flow<List<CountryHistory>> =
+        keyValueStore.comparisonCountriesObservable.flatMapLatest {
+            database.countryHistoryDao().getCountryHistoryAndTimeline(it.toList())
+        }.map { it.toDomain() }
 
     fun addCountryToComparison(countryName: String) {
         val comparisonCountries = keyValueStore.comparisonCountries
@@ -137,10 +149,4 @@ class CovidRepository(
     fun resetComparisonCountries() {
         keyValueStore.comparisonCountries = emptySet()
     }
-
-    fun getObservableAvailableComparisonCountries(): Flow<List<Country>> =
-        database.countryDao().getAll()
-            .combine(keyValueStore.comparisonCountriesObservable) { countries, comparisonCountries ->
-                countries.filter { !comparisonCountries.contains(it.country) }
-            }.map { it.toDomain() }
 }

@@ -13,17 +13,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.comparison.createcomparison.CreateComparisonFragment">
+        tools:context=".presentation.navigation.NavigationActivity">
 
         <include
+            layout="@layout/content_comparison_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            layout="@layout/content_not_initialized"
-            app:isVisible="@{viewmodel.initializing}"
-            app:layout_constraintTop_toTopOf="parent"
+            app:isVisible="@{viewmodel.comparison.comparisonCountries.empty}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAdd"
@@ -32,6 +32,7 @@
             android:layout_marginEnd="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_medium"
             android:src="@drawable/ic_add_24"
+            app:isVisible="@{viewmodel.comparison.comparisonCountries.size() &lt; 4}"
             app:layout_constraintBottom_toTopOf="@+id/fabCompare"
             app:layout_constraintEnd_toEndOf="parent"
             app:elevation="@dimen/elevation_default" />
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:src="@drawable/ic_forward_24"
+            app:isVisible="@{viewmodel.comparison.comparisonCountries.size() &gt; 1}"
             android:layout_marginBottom="@dimen/spacing_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +59,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:isVisible="@{!viewmodel.initializing}" />
+            app:isVisible="@{!viewmodel.comparison.comparisonCountries.empty}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

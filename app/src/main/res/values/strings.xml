@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">PandemicWatch</string>
 
+    <!-- Alert dialogs -->
+    <string name="alert_dialog_positive_button">OK</string>
+    <string name="alert_dialog_negative_button">Cancel</string>
+
     <!-- Screen titles -->
     <string name="screen_title_overview">Overview</string>
     <string name="screen_title_country_list">Countries</string>
@@ -9,6 +13,7 @@
     <string name="screen_title_line_chart">Line chart</string>
     <string name="screen_title_create_comparison">Comparison</string>
     <string name="screen_title_add_country_to_comparison">Select country</string>
+    <string name="screen_title_comparison">Comparison</string>
 
     <!-- Overview screen -->
     <string name="overview_updated_label">Updated:</string>
@@ -41,8 +46,7 @@
     <string name="menu_item_add_to_comparison">Add country</string>
     <string name="create_comparison_reset_dialog_title">Reset comparison</string>
     <string name="create_comparison_reset_dialog_message">Are you sure you want to reset comparison?</string>
-    <string name="alert_dialog_positive_button">Ok</string>
-    <string name="alert_dialog_negative_button">Cancel</string>
+    <string name="create_comparison_empty_message">Add countries to compare</string>
 
-    <!-- Add country to comparison screen -->
+    <!-- Comparison screen -->
 </resources>

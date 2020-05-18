@@ -16,7 +16,8 @@ val dataModule = module {
             get(),
             CovidDatabase::class.java,
             "covid-database"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
     single<CovidKeyValueStore> {
         CovidKeyValueStoreImpl(

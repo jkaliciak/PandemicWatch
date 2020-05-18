@@ -7,19 +7,19 @@ import dev.jakal.pandemicwatch.infrastructure.database.converter.LocalDateConver
 import dev.jakal.pandemicwatch.infrastructure.database.converter.LocalDateTimeConverter
 import dev.jakal.pandemicwatch.infrastructure.database.converter.TimelineTypeConverter
 import dev.jakal.pandemicwatch.infrastructure.database.dao.CountryDao
-import dev.jakal.pandemicwatch.infrastructure.database.dao.CountryHistoricalDao
+import dev.jakal.pandemicwatch.infrastructure.database.dao.CountryHistoryDao
 import dev.jakal.pandemicwatch.infrastructure.database.dao.TimelineDao
 import dev.jakal.pandemicwatch.infrastructure.database.model.CountryEntity
-import dev.jakal.pandemicwatch.infrastructure.database.model.CountryHistoricalEntity
+import dev.jakal.pandemicwatch.infrastructure.database.model.CountryHistoryEntity
 import dev.jakal.pandemicwatch.infrastructure.database.model.TimelineEntity
 
 @Database(
     entities = [
         CountryEntity::class,
-        CountryHistoricalEntity::class,
+        CountryHistoryEntity::class,
         TimelineEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(
@@ -31,7 +31,7 @@ abstract class CovidDatabase : RoomDatabase() {
 
     abstract fun countryDao(): CountryDao
 
-    abstract fun countryHistoricalDao(): CountryHistoricalDao
+    abstract fun countryHistoryDao(): CountryHistoryDao
 
     abstract fun timelineDao(): TimelineDao
 }

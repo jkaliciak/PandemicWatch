@@ -34,4 +34,10 @@
     <color name="colorChartRecoveredOnBackground">#ffffff</color>
     <color name="colorChartRecoveredForeground">#009624</color>
     <color name="colorChartRecoveredOnForeground">#ffffff</color>
+
+    <color name="colorChartComparison1">#d32f2f</color>
+    <color name="colorChartComparison2">#ec407a</color>
+    <color name="colorChartComparison3">#ffeb3b</color>
+    <color name="colorChartComparison4">#9c27b0</color>
+    <color name="colorChartOnForeground">#ffffff</color>
 </resources>

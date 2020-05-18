@@ -1,8 +1,8 @@
 package dev.jakal.pandemicwatch.infrastructure.network.novelcovidapi.model
 
 import com.squareup.moshi.JsonClass
-import dev.jakal.pandemicwatch.domain.model.CountryHistorical
-import dev.jakal.pandemicwatch.infrastructure.database.model.CountryHistoricalEntity
+import dev.jakal.pandemicwatch.domain.model.CountryHistory
+import dev.jakal.pandemicwatch.infrastructure.database.model.CountryHistoryEntity
 import dev.jakal.pandemicwatch.infrastructure.database.model.TimelineEntity
 
 @JsonClass(generateAdapter = true)
@@ -12,14 +12,14 @@ data class CountryHistoricalNetwork(
 )
 
 fun CountryHistoricalNetwork.toDomain() =
-    CountryHistorical(
+    CountryHistory(
         country,
         timeline.toDomain()
     )
 
 fun List<CountryHistoricalNetwork>.toDomain() = map { it.toDomain() }
 
-fun CountryHistoricalNetwork.toEntity() = CountryHistoricalEntity(country)
+fun CountryHistoricalNetwork.toEntity() = CountryHistoryEntity(country)
 
 fun List<CountryHistoricalNetwork>.toEntity() = map { it.toEntity() }
 

@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import dev.jakal.pandemicwatch.domain.model.toPresentation
 import dev.jakal.pandemicwatch.domain.result.Result
 import dev.jakal.pandemicwatch.domain.result.onError
-import dev.jakal.pandemicwatch.domain.usecase.overview.LoadGlobalHistoricalUseCase
+import dev.jakal.pandemicwatch.domain.usecase.overview.LoadGlobalHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.overview.LoadGlobalStatsUseCase
-import dev.jakal.pandemicwatch.domain.usecase.common.UpdateGlobalHistoricalUseCase
+import dev.jakal.pandemicwatch.domain.usecase.common.UpdateGlobalHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.common.UpdateGlobalStatsUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -17,17 +17,17 @@ import kotlinx.coroutines.launch
 class OverviewViewModel(
     private val updateGlobalStatsUseCase: UpdateGlobalStatsUseCase,
     private val loadGlobalStatsUseCase: LoadGlobalStatsUseCase,
-    private val updateGlobalHistoricalUseCase: UpdateGlobalHistoricalUseCase,
-    private val loadGlobalHistoricalUseCase: LoadGlobalHistoricalUseCase
+    private val updateGlobalHistoryUseCase: UpdateGlobalHistoryUseCase,
+    private val loadGlobalHistoryUseCase: LoadGlobalHistoryUseCase
 ) : ViewModel() {
 
     val globalStats: LiveData<GlobalStatsPresentation>
         get() = _globalStats
     private val _globalStats = MutableLiveData<GlobalStatsPresentation>()
 
-    val globalHistorical: LiveData<GlobalHistoricalPresentation>
-        get() = _globalHistorical
-    private val _globalHistorical = MutableLiveData<GlobalHistoricalPresentation>()
+    val globalHistory: LiveData<GlobalHistoryPresentation>
+        get() = _globalHistory
+    private val _globalHistory = MutableLiveData<GlobalHistoryPresentation>()
 
     val refreshing: LiveData<Boolean>
         get() = _refreshing
@@ -52,10 +52,10 @@ class OverviewViewModel(
             }
         }
         viewModelScope.launch {
-            loadGlobalHistoricalUseCase(Unit).collect {
+            loadGlobalHistoryUseCase(Unit).collect {
                 when (it) {
                     is Result.Success -> {
-                        _globalHistorical.value = it.data.toPresentation()
+                        _globalHistory.value = it.data.toPresentation()
                         _initializing.value = false
                     }
                     is Result.Error -> handleError(it.exception)
@@ -70,7 +70,7 @@ class OverviewViewModel(
             updateGlobalStatsUseCase(Unit).onError {
                 handleError(it.exception)
             }
-            updateGlobalHistoricalUseCase(Unit).onError {
+            updateGlobalHistoryUseCase(Unit).onError {
                 handleError(it.exception)
             }
             _refreshing.value = false

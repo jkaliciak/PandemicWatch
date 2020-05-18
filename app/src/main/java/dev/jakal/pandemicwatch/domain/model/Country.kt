@@ -1,7 +1,6 @@
 package dev.jakal.pandemicwatch.domain.model
 
 import dev.jakal.pandemicwatch.common.utils.toDateTimeFormat
-import dev.jakal.pandemicwatch.presentation.comparison.ComparisonPresentation
 import dev.jakal.pandemicwatch.presentation.countrydetails.CountryPresentation
 import dev.jakal.pandemicwatch.presentation.countrylist.CountryListPresentation
 import org.threeten.bp.LocalDateTime
@@ -16,8 +15,8 @@ data class Country(
     val recovered: Int,
     val active: Int,
     val critical: Int,
-    val casesPerOneMillion: Int,
-    val deathsPerOneMillion: Int,
+    val casesPerOneMillion: Double,
+    val deathsPerOneMillion: Double,
     val updated: LocalDateTime,
     val tests: Long,
     val testsPerOneMillion: Double,

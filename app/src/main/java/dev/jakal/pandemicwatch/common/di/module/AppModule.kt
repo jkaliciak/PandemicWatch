@@ -1,9 +1,9 @@
 package dev.jakal.pandemicwatch.common.di.module
 
 import androidx.work.WorkManager
-import dev.jakal.pandemicwatch.domain.usecase.common.UpdateCountriesHistoricalUseCase
+import dev.jakal.pandemicwatch.domain.usecase.common.UpdateCountriesHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.common.UpdateCountriesUseCase
-import dev.jakal.pandemicwatch.domain.usecase.common.UpdateGlobalHistoricalUseCase
+import dev.jakal.pandemicwatch.domain.usecase.common.UpdateGlobalHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.common.UpdateGlobalStatsUseCase
 import dev.jakal.pandemicwatch.infrastructure.logging.AppDebugTree
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +22,7 @@ val appModule = module {
         WorkManager.getInstance(get())
     }
     single {
-        UpdateGlobalHistoricalUseCase(
+        UpdateGlobalHistoryUseCase(
             get(),
             Dispatchers.Default
         )
@@ -40,7 +40,7 @@ val appModule = module {
         )
     }
     single {
-        UpdateCountriesHistoricalUseCase(
+        UpdateCountriesHistoryUseCase(
             get(),
             Dispatchers.Default
         )

@@ -13,13 +13,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.countrylist.CountryListFragment">
+        tools:context=".presentation.navigation.NavigationActivity">
 
         <include
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             layout="@layout/content_not_initialized"
-            app:isVisible="@{viewmodel.initializing}"
+            app:isVisible="@{viewmodel.comparison.availableCountries.empty}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:isVisible="@{!viewmodel.initializing}" />
+            app:isVisible="@{!viewmodel.comparison.availableCountries.empty}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,6 +13,7 @@ import dev.jakal.pandemicwatch.presentation.common.chart.setupChart
 import dev.jakal.pandemicwatch.presentation.common.chart.toEntries
 import dev.jakal.pandemicwatch.presentation.common.load
 import dev.jakal.pandemicwatch.presentation.linechart.LineChartConfig
+import dev.jakal.pandemicwatch.presentation.linechart.LineDataConfig
 import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -88,41 +89,51 @@ class CountryDetailsFragment : Fragment() {
             }
             updateMenu(it.favorite)
         })
-        viewModel.countryHistorical.observe(viewLifecycleOwner, Observer {
-            LineChartConfig.caseConfig().copy(entries = it.casesHistory.toEntries())
-                .also { config ->
-                    binding.contentCasesChart.lineChart.setupChart(config)
-                    binding.cvCasesChart.setOnClickListener {
-                        findNavController().navigate(
-                            CountryDetailsFragmentDirections.showLineChart(
-                                config.copy(touchEnabled = true)
-                            )
-                        )
-                    }
-                }
-            LineChartConfig.deathConfig().copy(entries = it.deathsHistory.toEntries())
-                .also { config ->
-                    binding.contentDeathsChart.lineChart.setupChart(config)
-                    binding.cvDeathsChart.setOnClickListener {
-                        findNavController().navigate(
-                            CountryDetailsFragmentDirections.showLineChart(
-                                config.copy(touchEnabled = true)
-                            )
-                        )
-                    }
-                }
+        viewModel.countryHistory.observe(viewLifecycleOwner, Observer {
+            val caseChartConfig = LineChartConfig.caseConfig()
+            val caseLineConfig = LineDataConfig.caseConfig(
+                entries = it.casesHistory.toEntries()
+            )
+            binding.contentCasesChart.lineChart.setupChart(caseChartConfig, caseLineConfig)
+            binding.cvCasesChart.setOnClickListener {
+                findNavController().navigate(
+                    CountryDetailsFragmentDirections.showLineChart(
+                        caseChartConfig.copy(touchEnabled = true),
+                        arrayOf(caseLineConfig)
+                    )
+                )
+            }
 
-            LineChartConfig.recoveredConfig().copy(entries = it.recoveredHistory.toEntries())
-                .also { config ->
-                    binding.contentRecoveredChart.lineChart.setupChart(config)
-                    binding.cvRecoveredChart.setOnClickListener {
-                        findNavController().navigate(
-                            CountryDetailsFragmentDirections.showLineChart(
-                                config.copy(touchEnabled = true)
-                            )
-                        )
-                    }
-                }
+            val deathsChartConfig = LineChartConfig.deathConfig()
+            val deathsLineConfig = LineDataConfig.deathConfig(
+                entries = it.deathsHistory.toEntries()
+            )
+            binding.contentDeathsChart.lineChart.setupChart(deathsChartConfig, deathsLineConfig)
+            binding.cvDeathsChart.setOnClickListener {
+                findNavController().navigate(
+                    CountryDetailsFragmentDirections.showLineChart(
+                        deathsChartConfig.copy(touchEnabled = true),
+                        arrayOf(deathsLineConfig)
+                    )
+                )
+            }
+
+            val recoveredChartConfig = LineChartConfig.recoveredConfig()
+            val recoveredLineConfig = LineDataConfig.recoveredConfig(
+                entries = it.recoveredHistory.toEntries()
+            )
+            binding.contentRecoveredChart.lineChart.setupChart(
+                recoveredChartConfig,
+                recoveredLineConfig
+            )
+            binding.cvRecoveredChart.setOnClickListener {
+                findNavController().navigate(
+                    CountryDetailsFragmentDirections.showLineChart(
+                        recoveredChartConfig.copy(touchEnabled = true),
+                        arrayOf(recoveredLineConfig)
+                    )
+                )
+            }
         })
     }
 

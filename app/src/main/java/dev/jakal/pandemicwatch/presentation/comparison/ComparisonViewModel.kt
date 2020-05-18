@@ -8,6 +8,7 @@ import dev.jakal.pandemicwatch.domain.result.Result
 import dev.jakal.pandemicwatch.domain.result.onError
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadAvailableComparisonCountriesUseCase
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesUseCase
+import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.countrylist.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 class ComparisonViewModel(
     private val loadComparisonCountriesUseCase: LoadComparisonCountriesUseCase,
     private val loadAvailableComparisonCountriesUseCase: LoadAvailableComparisonCountriesUseCase,
+    private val loadComparisonCountriesHistoryUseCase: LoadComparisonCountriesHistoryUseCase,
     private val addCountryToComparisonUseCase: AddCountryToComparisonUseCase,
     private val removeCountryFromComparisonUseCase: RemoveCountryFromComparisonUseCase,
     private val resetComparisonCountriesUseCase: ResetComparisonCountriesUseCase
@@ -27,10 +29,6 @@ class ComparisonViewModel(
         get() = _comparison
     private val _comparison = MutableLiveData(ComparisonPresentation())
 
-    val initializing: LiveData<Boolean>
-        get() = _initializing
-    private val _initializing = MutableLiveData(true)
-
     init {
         viewModelScope.launch {
             loadComparisonCountriesUseCase(Unit).collect {
@@ -39,7 +37,18 @@ class ComparisonViewModel(
                         _comparison.value = comparison.value?.copy(
                             comparisonCountries = it.data
                         )
-                        _initializing.value = false
+                    }
+                    is Result.Error -> handleError(it.exception)
+                }
+            }
+        }
+        viewModelScope.launch {
+            loadComparisonCountriesHistoryUseCase(Unit).collect {
+                when (it) {
+                    is Result.Success -> {
+                        _comparison.value = comparison.value?.copy(
+                            comparisonCountriesHistory = it.data
+                        )
                     }
                     is Result.Error -> handleError(it.exception)
                 }
@@ -52,7 +61,6 @@ class ComparisonViewModel(
                         _comparison.value = comparison.value?.copy(
                             availableCountries = it.data
                         )
-                        _initializing.value = false
                     }
                     is Result.Error -> handleError(it.exception)
                 }

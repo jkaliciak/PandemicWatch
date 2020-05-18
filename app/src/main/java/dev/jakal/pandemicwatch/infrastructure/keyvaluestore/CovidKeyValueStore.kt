@@ -1,6 +1,6 @@
 package dev.jakal.pandemicwatch.infrastructure.keyvaluestore
 
-import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalHistoricalEntity
+import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalHistoryEntity
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalStatsEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -10,9 +10,9 @@ interface CovidKeyValueStore {
 
     val globalStatsObservable: Flow<GlobalStatsEntity>
 
-    var globalHistorical: GlobalHistoricalEntity?
+    var globalHistory: GlobalHistoryEntity?
 
-    val globalHistoricalObservable: Flow<GlobalHistoricalEntity>
+    val globalHistoryObservable: Flow<GlobalHistoryEntity>
 
     var favoriteCountries: Set<String>
 

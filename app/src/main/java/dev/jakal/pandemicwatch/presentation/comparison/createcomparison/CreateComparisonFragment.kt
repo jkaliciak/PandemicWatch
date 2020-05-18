@@ -12,6 +12,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentCreateComparisonBinding
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
+import dev.jakal.pandemicwatch.presentation.common.adapter.setupSwipeDelete
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -20,6 +21,8 @@ class CreateComparisonFragment : Fragment() {
     private val viewModel: ComparisonViewModel by sharedViewModel()
     private lateinit var binding: FragmentCreateComparisonBinding
     private lateinit var adapter: CountriesAdapter
+    private var addToComparisonMenuItem: MenuItem? = null
+    private var resetComparison: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,8 @@ class CreateComparisonFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.create_comparison_menu, menu)
+        addToComparisonMenuItem = menu.findItem(R.id.menuAddToComparison)
+        resetComparison = menu.findItem(R.id.menuResetComparison)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -68,17 +73,21 @@ class CreateComparisonFragment : Fragment() {
             }
         )
         binding.rvCountries.adapter = this@CreateComparisonFragment.adapter
+        binding.rvCountries.setupSwipeDelete(adapter) { deletedCountryName ->
+            viewModel.removeCountryFromComparison(deletedCountryName)
+        }
         binding.fabAdd.setOnClickListener { startAddCountryToComparisonScreen() }
         binding.fabCompare.setOnClickListener {
-//                findNavController().navigate(
-//                    CountryListFragmentDirections.showCountry(countryName)
-//                )
+            findNavController().navigate(
+                CreateComparisonFragmentDirections.showComparison()
+            )
         }
     }
 
     private fun observeComparison() {
         viewModel.comparison.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it.comparisonCountries.toMutableList())
+            updateMenu(it.comparisonCountries.size)
         })
     }
 
@@ -95,5 +104,10 @@ class CreateComparisonFragment : Fragment() {
                 viewModel.resetComparisonCountries()
             }.setNegativeButton(R.string.alert_dialog_negative_button, null)
             .show()
+    }
+
+    private fun updateMenu(comparisonItemsCount: Int) {
+        addToComparisonMenuItem?.isVisible = comparisonItemsCount < 4
+        resetComparison?.isVisible = comparisonItemsCount > 0
     }
 }

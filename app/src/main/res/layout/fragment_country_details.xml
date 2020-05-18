@@ -14,7 +14,7 @@
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.overview.OverviewFragment">
+        tools:context=".presentation.navigation.NavigationActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:translationZ="@dimen/elevation_default"
-                    app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistorical != null}"
+                    app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistory != null}"
                     app:layout_constraintTop_toBottomOf="@+id/cvCountryInfo"
                     tools:layout_editor_absoluteX="8dp">
 
@@ -125,7 +125,7 @@
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
                     android:translationZ="@dimen/elevation_default"
-                    app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistorical != null}"
+                    app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistory != null}"
                     app:layout_constraintTop_toBottomOf="@+id/cvCasesChart">
 
                     <include
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
                     android:translationZ="@dimen/elevation_default"
-                    app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistorical != null}"
+                    app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistory != null}"
                     app:layout_constraintTop_toBottomOf="@+id/cvDeathsChart"
                     tools:layout_editor_absoluteX="8dp">
 

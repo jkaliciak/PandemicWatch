@@ -15,9 +15,7 @@ import dev.jakal.pandemicwatch.presentation.common.load
 class CountriesAdapter(
     private val onClickListener: (countryName: String, ivCountryFlag: ImageView, tvCountryName: TextView, cardView: MaterialCardView) -> Unit,
     private val sortingComparator: Comparator<Country>? = null
-) : ListAdapter<Country, CountryViewHolder>(
-    CountryDiffCallback()
-) {
+) : ListAdapter<Country, CountryViewHolder>(CountryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder =
         CountryViewHolder(

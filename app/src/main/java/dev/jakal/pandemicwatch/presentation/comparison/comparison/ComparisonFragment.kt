@@ -1,4 +1,4 @@
-package dev.jakal.pandemicwatch.presentation.overview
+package dev.jakal.pandemicwatch.presentation.comparison.comparison
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,27 +7,27 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import dev.jakal.pandemicwatch.databinding.FragmentOverviewBinding
+import dev.jakal.pandemicwatch.databinding.FragmentComparisonBinding
 import dev.jakal.pandemicwatch.presentation.common.chart.setupChart
-import dev.jakal.pandemicwatch.presentation.common.chart.toEntries
+import dev.jakal.pandemicwatch.presentation.common.chart.toCaseLineDataConfigs
+import dev.jakal.pandemicwatch.presentation.common.chart.toDeathsLineDataConfigs
+import dev.jakal.pandemicwatch.presentation.common.chart.toRecoveredLineDataConfigs
+import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
 import dev.jakal.pandemicwatch.presentation.countrydetails.CountryDetailsFragmentDirections
 import dev.jakal.pandemicwatch.presentation.linechart.LineChartConfig
-import dev.jakal.pandemicwatch.presentation.linechart.LineDataConfig
-import org.koin.androidx.scope.lifecycleScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class OverviewFragment : Fragment() {
+class ComparisonFragment : Fragment() {
 
-    private val viewModel: OverviewViewModel by viewModel { parametersOf(lifecycleScope.id) }
-    private lateinit var binding: FragmentOverviewBinding
+    private val viewModel: ComparisonViewModel by sharedViewModel()
+    private lateinit var binding: FragmentComparisonBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentOverviewBinding.inflate(inflater, container, false)
+        binding = FragmentComparisonBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -36,56 +36,49 @@ class OverviewFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
-        setupSwipeRefresh()
+        setupViews()
     }
 
-    private fun setupSwipeRefresh() {
-        binding.swipeRefresh.setOnRefreshListener { viewModel.refreshGlobalStats() }
-        viewModel.refreshing.observe(viewLifecycleOwner, Observer {
-            binding.swipeRefresh.isRefreshing = it
-        })
-        viewModel.globalHistory.observe(viewLifecycleOwner, Observer {
+    private fun setupViews() {
+        viewModel.comparison.observe(viewLifecycleOwner, Observer {
             val caseChartConfig = LineChartConfig.caseConfig()
-            val caseLineConfig = LineDataConfig.caseConfig(
-                entries = it.casesHistory.toEntries()
-            )
-            binding.contentCasesChart.lineChart.setupChart(caseChartConfig, caseLineConfig)
+                .copy(legendEnabled = true, fillEnabled = false)
+            val caseLineConfigs = it.comparisonCountriesHistory.toCaseLineDataConfigs()
+            binding.contentCasesChart.lineChart.setupChart(caseChartConfig, *caseLineConfigs)
             binding.cvCasesChart.setOnClickListener {
                 findNavController().navigate(
                     CountryDetailsFragmentDirections.showLineChart(
                         caseChartConfig.copy(touchEnabled = true),
-                        arrayOf(caseLineConfig)
+                        caseLineConfigs
                     )
                 )
             }
 
             val deathsChartConfig = LineChartConfig.deathConfig()
-            val deathsLineConfig = LineDataConfig.deathConfig(
-                entries = it.deathsHistory.toEntries()
-            )
-            binding.contentDeathsChart.lineChart.setupChart(deathsChartConfig, deathsLineConfig)
+                .copy(legendEnabled = true, fillEnabled = false)
+            val deathsLineConfigs = it.comparisonCountriesHistory.toDeathsLineDataConfigs()
+            binding.contentDeathsChart.lineChart.setupChart(deathsChartConfig, *deathsLineConfigs)
             binding.cvDeathsChart.setOnClickListener {
                 findNavController().navigate(
                     CountryDetailsFragmentDirections.showLineChart(
                         deathsChartConfig.copy(touchEnabled = true),
-                        arrayOf(deathsLineConfig)
+                        deathsLineConfigs
                     )
                 )
             }
 
             val recoveredChartConfig = LineChartConfig.recoveredConfig()
-            val recoveredLineConfig = LineDataConfig.recoveredConfig(
-                entries = it.recoveredHistory.toEntries()
-            )
+                .copy(legendEnabled = true, fillEnabled = false)
+            val recoveredLineConfigs = it.comparisonCountriesHistory.toRecoveredLineDataConfigs()
             binding.contentRecoveredChart.lineChart.setupChart(
                 recoveredChartConfig,
-                recoveredLineConfig
+                *recoveredLineConfigs
             )
             binding.cvRecoveredChart.setOnClickListener {
                 findNavController().navigate(
                     CountryDetailsFragmentDirections.showLineChart(
                         recoveredChartConfig.copy(touchEnabled = true),
-                        arrayOf(recoveredLineConfig)
+                        recoveredLineConfigs
                     )
                 )
             }

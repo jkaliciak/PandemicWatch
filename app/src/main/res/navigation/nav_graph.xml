@@ -43,6 +43,9 @@
         <argument
             android:name="lineChartConfig"
             app:argType="dev.jakal.pandemicwatch.presentation.linechart.LineChartConfig" />
+        <argument
+            android:name="lineDataConfig"
+            app:argType="dev.jakal.pandemicwatch.presentation.linechart.LineDataConfig[]" />
     </fragment>
     <fragment
         android:id="@+id/createComparisonFragment"
@@ -52,12 +55,24 @@
         <action
             android:id="@+id/showAddCountryToComparison"
             app:destination="@id/addCountryToComparisonFragment" />
+        <action
+            android:id="@+id/showComparison"
+            app:destination="@id/comparisonFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCountryToComparisonFragment"
         android:name="dev.jakal.pandemicwatch.presentation.comparison.addcountrytocomparison.AddCountryToComparisonFragment"
         android:label="@string/screen_title_add_country_to_comparison"
         tools:layout="@layout/fragment_add_country_to_comparison" />
+    <fragment
+        android:id="@+id/comparisonFragment"
+        android:name="dev.jakal.pandemicwatch.presentation.comparison.comparison.ComparisonFragment"
+        android:label="@string/screen_title_comparison"
+        tools:layout="@layout/fragment_comparison">
+        <action
+            android:id="@+id/showLineChart"
+            app:destination="@id/lineChartFragment" />
+    </fragment>
 
 </navigation>
 

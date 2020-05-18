@@ -19,7 +19,8 @@ class LineChartFragment : Fragment() {
     private val viewModel: LineChartViewModel by viewModel {
         parametersOf(
             lifecycleScope.id,
-            args.lineChartConfig
+            args.lineChartConfig,
+            args.lineDataConfig
         )
     }
     private lateinit var binding: FragmentLineChartBinding
@@ -42,8 +43,8 @@ class LineChartFragment : Fragment() {
     }
 
     private fun observeLineChartData() {
-        viewModel.lineChartConfig.observe(viewLifecycleOwner, Observer {
-            binding.lineChart.setupChart(it)
+        viewModel.lineChart.observe(viewLifecycleOwner, Observer {
+            binding.lineChart.setupChart(it.chartConfig, *it.lineConfigs)
         })
     }
 }

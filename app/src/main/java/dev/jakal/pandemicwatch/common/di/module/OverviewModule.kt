@@ -1,6 +1,6 @@
 package dev.jakal.pandemicwatch.common.di.module
 
-import dev.jakal.pandemicwatch.domain.usecase.overview.LoadGlobalHistoricalUseCase
+import dev.jakal.pandemicwatch.domain.usecase.overview.LoadGlobalHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.overview.LoadGlobalStatsUseCase
 import dev.jakal.pandemicwatch.presentation.overview.OverviewFragment
 import dev.jakal.pandemicwatch.presentation.overview.OverviewViewModel
@@ -21,7 +21,7 @@ val overviewModule = module {
             )
         }
         scoped {
-            LoadGlobalHistoricalUseCase(
+            LoadGlobalHistoryUseCase(
                 get(),
                 Dispatchers.Default
             )

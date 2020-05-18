@@ -3,7 +3,7 @@ package dev.jakal.pandemicwatch.infrastructure.keyvaluestore
 import android.content.Context
 import android.content.SharedPreferences
 import com.squareup.moshi.Moshi
-import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalHistoricalEntity
+import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalHistoryEntity
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalStatsEntity
 import hu.autsoft.krate.Krate
 import hu.autsoft.krate.moshi.moshi
@@ -24,7 +24,7 @@ class CovidKeyValueStoreImpl(
 ) : Krate, CovidKeyValueStore {
 
     private var _globalStats: GlobalStatsEntity? by moshiPref("key_global_stats")
-    private var _globalHistorical: GlobalHistoricalEntity? by moshiPref("key_global_historical")
+    private var _globalHistory: GlobalHistoryEntity? by moshiPref("key_global_history")
     private var _favoriteCountries: Set<String> by stringSetPref(
         "key_favorite_countries",
         mutableSetOf()
@@ -35,7 +35,7 @@ class CovidKeyValueStoreImpl(
     )
     private val scope = CoroutineScope(defaultDispatcher)
     private val globalStatsChannel = ConflatedBroadcastChannel<GlobalStatsEntity>()
-    private val globalHistoricalChannel = ConflatedBroadcastChannel<GlobalHistoricalEntity>()
+    private val globalHistoryChannel = ConflatedBroadcastChannel<GlobalHistoryEntity>()
     private val favoriteCountriesChannel = ConflatedBroadcastChannel<Set<String>>()
     private val comparisonCountriesChannel = ConflatedBroadcastChannel<Set<String>>()
 
@@ -53,19 +53,19 @@ class CovidKeyValueStoreImpl(
     override val globalStatsObservable: Flow<GlobalStatsEntity>
         get() = globalStatsChannel.asFlow()
 
-    override var globalHistorical: GlobalHistoricalEntity?
+    override var globalHistory: GlobalHistoryEntity?
         get() {
-            return _globalHistorical
+            return _globalHistory
         }
         set(value) {
             scope.launch {
-                value?.let { globalHistoricalChannel.send(it) }
+                value?.let { globalHistoryChannel.send(it) }
             }
-            _globalHistorical = value
+            _globalHistory = value
         }
 
-    override val globalHistoricalObservable: Flow<GlobalHistoricalEntity>
-        get() = globalHistoricalChannel.asFlow()
+    override val globalHistoryObservable: Flow<GlobalHistoryEntity>
+        get() = globalHistoryChannel.asFlow()
 
     override var favoriteCountries: Set<String>
         get() {
@@ -105,7 +105,7 @@ class CovidKeyValueStoreImpl(
         )
         scope.launch {
             globalStats?.let { globalStatsChannel.send(it) }
-            globalHistorical?.let { globalHistoricalChannel.send(it) }
+            globalHistory?.let { globalHistoryChannel.send(it) }
             favoriteCountriesChannel.send(favoriteCountries)
             comparisonCountriesChannel.send(comparisonCountries)
         }
@@ -114,7 +114,7 @@ class CovidKeyValueStoreImpl(
     internal fun cleanup() {
         scope.cancel()
         globalStatsChannel.close()
-        globalHistoricalChannel.close()
+        globalHistoryChannel.close()
         favoriteCountriesChannel.close()
         comparisonCountriesChannel.close()
     }
