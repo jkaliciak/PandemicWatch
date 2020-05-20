@@ -16,7 +16,6 @@
         android:transitionName="@{@string/transition_country_cardview(country.country)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_medium"
         android:translationZ="@dimen/elevation_default">
 
         <androidx.constraintlayout.widget.ConstraintLayout

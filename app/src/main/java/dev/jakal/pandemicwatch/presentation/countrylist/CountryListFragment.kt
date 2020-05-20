@@ -11,8 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.card.MaterialCardView
+import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentCountryListBinding
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
+import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
 import dev.jakal.pandemicwatch.presentation.countrydetails.FavoriteCountriesComparator
 import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -59,6 +61,7 @@ class CountryListFragment : Fragment() {
         )
         postponeEnterTransition()
         binding.rvCountries.apply {
+            addItemDecoration(SpacingItemDecoration(resources.getDimensionPixelOffset(R.dimen.spacing_medium)))
             adapter = this@CountryListFragment.adapter
             viewTreeObserver.addOnPreDrawListener {
                 startPostponedEnterTransition()

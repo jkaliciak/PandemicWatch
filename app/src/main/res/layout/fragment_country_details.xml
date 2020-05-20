@@ -104,7 +104,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cvCasesChart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/defaultChartHeight"
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:translationZ="@dimen/elevation_default"
@@ -121,7 +121,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cvDeathsChart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/defaultChartHeight"
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
                     android:translationZ="@dimen/elevation_default"
@@ -137,7 +137,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cvRecoveredChart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/defaultChartHeight"
                     android:layout_margin="@dimen/spacing_medium"
                     android:translationZ="@dimen/elevation_default"
                     app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistory != null}"

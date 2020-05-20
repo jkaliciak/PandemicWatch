@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.card.MaterialCardView
+import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentAddCountryToComparisonBinding
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
+import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -50,7 +52,11 @@ class AddCountryToComparisonFragment : Fragment() {
                     c1.country.compareTo(c2.country)
                 }
             )
-        binding.rvCountries.adapter = this@AddCountryToComparisonFragment.adapter
+
+        binding.rvCountries.apply {
+            addItemDecoration(SpacingItemDecoration(resources.getDimensionPixelOffset(R.dimen.spacing_medium)))
+            adapter = this@AddCountryToComparisonFragment.adapter
+        }
     }
 
     private fun observeCountries() {
