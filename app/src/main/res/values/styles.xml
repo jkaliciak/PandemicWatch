@@ -22,7 +22,7 @@
     <!-- Widget styles -->
     <style name="Widget.App.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:elevation">@dimen/elevation_toolbar</item>
+        <item name="android:elevation">@dimen/elevation_medium</item>
         <item name="android:theme">@style/ThemeOverlay.App.Toolbar</item>
     </style>
 
