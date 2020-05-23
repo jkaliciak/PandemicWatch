@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defaultChartHeight"
                 android:layout_margin="@dimen/spacing_medium"
-                android:translationZ="@dimen/elevation_default"
+                app:cardElevation="@dimen/elevation_default"
                 app:isVisible="@{!viewmodel.comparison.comparisonCountriesHistory.empty}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="8dp">
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defaultChartHeight"
                 android:layout_margin="@dimen/spacing_medium"
-                android:translationZ="@dimen/elevation_default"
+                app:cardElevation="@dimen/elevation_default"
                 app:isVisible="@{!viewmodel.comparison.comparisonCountriesHistory.empty}"
                 app:layout_constraintTop_toBottomOf="@+id/cvCasesChart"
                 tools:layout_editor_absoluteX="8dp">
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defaultChartHeight"
                 android:layout_margin="@dimen/spacing_medium"
-                android:translationZ="@dimen/elevation_default"
+                app:cardElevation="@dimen/elevation_default"
                 app:isVisible="@{!viewmodel.comparison.comparisonCountriesHistory.empty}"
                 app:layout_constraintTop_toBottomOf="@+id/cvDeathsChart"
                 tools:layout_editor_absoluteX="8dp">

@@ -26,14 +26,14 @@
                 android:layout_height="wrap_content">
 
                 <include
+                    layout="@layout/content_not_initialized"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    layout="@layout/content_not_initialized"
                     app:isVisible="@{viewmodel.initializing}"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cvCasesChart"
@@ -41,7 +41,8 @@
                     android:layout_height="@dimen/defaultChartHeight"
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:translationZ="@dimen/elevation_default"
+                    app:cardElevation="@dimen/elevation_default"
+                    app:cardPreventCornerOverlap="false"
                     app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.globalHistory != null}"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -57,7 +58,8 @@
                     android:layout_height="@dimen/defaultChartHeight"
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
-                    android:translationZ="@dimen/elevation_default"
+                    app:cardElevation="@dimen/elevation_default"
+                    app:cardPreventCornerOverlap="false"
                     app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.globalHistory != null}"
                     app:layout_constraintTop_toBottomOf="@+id/cvCasesChart">
 
@@ -72,7 +74,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/defaultChartHeight"
                     android:layout_margin="@dimen/spacing_medium"
-                    android:translationZ="@dimen/elevation_default"
+                    app:cardElevation="@dimen/elevation_default"
+                    app:cardPreventCornerOverlap="false"
                     app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.globalHistory != null}"
                     app:layout_constraintTop_toBottomOf="@+id/cvDeathsChart"
                     tools:layout_editor_absoluteX="8dp">
@@ -88,9 +91,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
-                    android:translationZ="@dimen/elevation_default"
-                    app:layout_constraintTop_toBottomOf="@+id/cvRecoveredChart"
-                    app:isVisible="@{!viewmodel.initializing}">
+                    app:cardElevation="@dimen/elevation_default"
+                    app:cardPreventCornerOverlap="false"
+                    app:isVisible="@{!viewmodel.initializing}"
+                    app:layout_constraintTop_toBottomOf="@+id/cvRecoveredChart">
 
                     <include
                         layout="@layout/content_overview_main"
@@ -103,9 +107,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
-                    android:translationZ="@dimen/elevation_default"
-                    app:layout_constraintTop_toBottomOf="@+id/cvOverviewMain"
-                    app:isVisible="@{!viewmodel.initializing}">
+                    app:cardElevation="@dimen/elevation_default"
+                    app:cardPreventCornerOverlap="false"
+                    app:isVisible="@{!viewmodel.initializing}"
+                    app:layout_constraintTop_toBottomOf="@+id/cvOverviewMain">
 
                     <include
                         layout="@layout/content_overview_today"
@@ -119,7 +124,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
-                    android:translationZ="@dimen/elevation_default"
+                    app:cardElevation="@dimen/elevation_default"
+                    app:cardPreventCornerOverlap="false"
                     app:isVisible="@{!viewmodel.initializing}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cvOverviewToday"
