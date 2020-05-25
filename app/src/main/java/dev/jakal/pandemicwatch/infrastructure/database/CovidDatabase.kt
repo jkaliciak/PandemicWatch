@@ -19,7 +19,7 @@ import dev.jakal.pandemicwatch.infrastructure.database.model.TimelineEntity
         CountryHistoryEntity::class,
         TimelineEntity::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(
