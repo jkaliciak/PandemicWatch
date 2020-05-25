@@ -7,13 +7,6 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
-class DateTimeHelper {
-
-    companion object {
-        fun now(): LocalDateTime = LocalDateTime.now()
-    }
-}
-
 /**
  * LocalDate to epoch days Long
  */

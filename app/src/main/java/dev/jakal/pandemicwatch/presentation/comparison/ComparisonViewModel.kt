@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import dev.jakal.pandemicwatch.domain.result.Result
 import dev.jakal.pandemicwatch.domain.result.onError
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadAvailableComparisonCountriesUseCase
-import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesUseCase
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesHistoryUseCase
+import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesUseCase
+import dev.jakal.pandemicwatch.domain.usecase.countryDetails.UpdateCountryHistoryParameters
+import dev.jakal.pandemicwatch.domain.usecase.countryDetails.UpdateCountryHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.countrylist.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -22,7 +24,8 @@ class ComparisonViewModel(
     private val loadComparisonCountriesHistoryUseCase: LoadComparisonCountriesHistoryUseCase,
     private val addCountryToComparisonUseCase: AddCountryToComparisonUseCase,
     private val removeCountryFromComparisonUseCase: RemoveCountryFromComparisonUseCase,
-    private val resetComparisonCountriesUseCase: ResetComparisonCountriesUseCase
+    private val resetComparisonCountriesUseCase: ResetComparisonCountriesUseCase,
+    private val updateCountryHistoryUseCase: UpdateCountryHistoryUseCase
 ) : ViewModel() {
 
     val comparison: LiveData<ComparisonPresentation>
@@ -72,6 +75,13 @@ class ComparisonViewModel(
         viewModelScope.launch {
             addCountryToComparisonUseCase(
                 AddCountryToComparisonParameters(countryName)
+            ).onError {
+                handleError(it.exception)
+            }
+        }
+        viewModelScope.launch {
+            updateCountryHistoryUseCase(
+                UpdateCountryHistoryParameters(countryName)
             ).onError {
                 handleError(it.exception)
             }

@@ -2,6 +2,7 @@ package dev.jakal.pandemicwatch
 
 import com.squareup.moshi.Moshi
 import dev.jakal.pandemicwatch.infrastructure.network.novelcovidapi.model.GlobalStatsNetwork
+import dev.jakal.pandemicwatch.infrastructure.network.novelcovidapi.model.TimelineNetwork
 import dev.jakal.pandemicwatch.infrastructure.network.novelcovidapi.service.NovelCovidAPIService
 import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.shouldBe
@@ -32,6 +33,16 @@ class NovelCovidAPIServiceTest : WordSpec() {
                 }
             }
 
+            "Called get global history" should {
+                runBlocking {
+                    val response = service.getGlobalHistorical()
+
+                    "response parsed correctly to TimelineNetwork" {
+                        response is TimelineNetwork
+                    }
+                }
+            }
+
             "Called get countries" should {
                 runBlocking {
                     val response = service.getCountries()
@@ -52,7 +63,17 @@ class NovelCovidAPIServiceTest : WordSpec() {
                 }
             }
 
-            "Called get historical data for Poland" should {
+            "Called get country history for Poland" should {
+                runBlocking {
+                    val response = service.getHistorical("Poland")
+
+                    "response is for Poland" {
+                        response.country shouldBe "Poland"
+                    }
+                }
+            }
+
+            "Called get historicals" should {
                 runBlocking {
                     val response = service.getHistorical()
 

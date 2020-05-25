@@ -34,6 +34,7 @@ class CovidKeyValueStoreImpl(
         mutableSetOf()
     )
     private val scope = CoroutineScope(defaultDispatcher)
+    // TODO replace ConflatedBroadcastChannels with StateFlows
     private val globalStatsChannel = ConflatedBroadcastChannel<GlobalStatsEntity>()
     private val globalHistoryChannel = ConflatedBroadcastChannel<GlobalHistoryEntity>()
     private val favoriteCountriesChannel = ConflatedBroadcastChannel<Set<String>>()

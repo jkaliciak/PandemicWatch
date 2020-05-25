@@ -45,6 +45,19 @@ android {
                     "kotlinx.coroutines.ExperimentalCoroutinesApi," +
                     "kotlinx.coroutines.FlowPreview"
     }
+
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/LICENSE.txt")
+        exclude("META-INF/NOTICE")
+        exclude("META-INF/NOTICE.txt")
+        exclude("META-INF/AL2.0")
+        exclude("META-INF/*.kotlin_module")
+        exclude("META-INF/LGPL2.1")
+        exclude("META-INF/LICENSE.md")
+        exclude("META-INF/LICENSE-notice.md")
+    }
 }
 
 tasks.withType<Test> {
@@ -55,6 +68,8 @@ dependencies {
 
     // jetbrains
     implementation(Libraries.kotlinStdLib)
+    implementation(Libraries.kotlinCoroutines)
+    implementation(Libraries.kotlinCoroutinesAndroid)
 
     // google
     implementation(Libraries.appCompat)
@@ -121,11 +136,18 @@ dependencies {
     testImplementation(TestLibraries.junit4)
     testImplementation(TestLibraries.kotlinCoroutinesTest)
     testImplementation(TestLibraries.threeTenAbp)
-    testImplementation(TestLibraries.kotest)
+    testImplementation(TestLibraries.kotestRunner)
+    testImplementation(TestLibraries.kotestAssertions)
     testImplementation(TestLibraries.mockk)
     testImplementation(TestLibraries.roomTesting)
+    androidTestImplementation(TestLibraries.testCore)
     androidTestImplementation(TestLibraries.testRunner)
+    androidTestImplementation(TestLibraries.testExtJUnit)
+    androidTestImplementation(TestLibraries.testRules)
+    androidTestImplementation(TestLibraries.kotlinCoroutinesTest)
     androidTestImplementation(TestLibraries.espresso)
+    androidTestImplementation(TestLibraries.kotestRunner)
+    androidTestImplementation(TestLibraries.kotestAssertions)
     androidTestImplementation(TestLibraries.navigationTesting)
     debugImplementation(TestLibraries.fragmentTesting)
 }

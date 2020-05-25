@@ -28,6 +28,7 @@ object AndroidSdk {
 object Libraries {
 
     private object Versions {
+        const val kotlinCoroutines = "1.3.7"
         const val appCompat = "1.1.0"
         const val material = "1.2.0-alpha04"
         const val constraintLayout = "1.1.3"
@@ -60,6 +61,10 @@ object Libraries {
 
     // jetbrains
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    const val kotlinCoroutines =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
+    const val kotlinCoroutinesAndroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
 
     // google
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
@@ -138,9 +143,9 @@ object TestLibraries {
 
     private object Versions {
         const val junit4 = "4.12"
-        const val testRunner = "1.1.1"
+        const val test = "1.1.1"
         const val espresso = "3.2.0"
-        const val kotlinCoroutinesTest = "1.3.3"
+        const val kotlinCoroutinesTest = "1.3.7"
         const val threeTenAbp = "1.2.2"
         const val kotest = "4.0.2"
         const val mockk = "1.9.3"
@@ -150,12 +155,16 @@ object TestLibraries {
     }
 
     const val junit4 = "junit:junit:${Versions.junit4}"
-    const val testRunner = "androidx.test:runner:${Versions.testRunner}"
+    const val testCore = "androidx.test:core:${Versions.test}"
+    const val testRunner = "androidx.test:runner:${Versions.test}"
+    const val testExtJUnit = "androidx.test.ext:junit:${Versions.test}"
+    const val testRules = "androidx.test:rules:${Versions.test}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val kotlinCoroutinesTest =
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutinesTest}"
     const val threeTenAbp = "org.threeten:threetenbp:${Versions.threeTenAbp}"
-    const val kotest = "io.kotest:kotest-runner-junit5-jvm:${Versions.kotest}"
+    const val kotestRunner = "io.kotest:kotest-runner-junit5-jvm:${Versions.kotest}"
+    const val kotestAssertions = "io.kotest:kotest-assertions-core-jvm:${Versions.kotest}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
     const val roomTesting = "androidx.room:room-testing:${Versions.room}"
     const val navigationTesting = "androidx.navigation:navigation-testing:${Versions.navigation}"
