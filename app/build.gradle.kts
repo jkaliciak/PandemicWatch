@@ -140,6 +140,7 @@ dependencies {
     testImplementation(TestLibraries.kotestAssertions)
     testImplementation(TestLibraries.mockk)
     testImplementation(TestLibraries.roomTesting)
+    testImplementation(TestLibraries.flowTestObserver)
     androidTestImplementation(TestLibraries.testCore)
     androidTestImplementation(TestLibraries.testRunner)
     androidTestImplementation(TestLibraries.testExtJUnit)
@@ -149,5 +150,6 @@ dependencies {
     androidTestImplementation(TestLibraries.kotestRunner)
     androidTestImplementation(TestLibraries.kotestAssertions)
     androidTestImplementation(TestLibraries.navigationTesting)
+    androidTestImplementation(TestLibraries.flowTestObserver)
     debugImplementation(TestLibraries.fragmentTesting)
 }

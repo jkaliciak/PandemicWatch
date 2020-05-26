@@ -4,7 +4,6 @@ import androidx.room.Room
 import dev.jakal.pandemicwatch.infrastructure.database.CovidDatabase
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.CovidKeyValueStore
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.CovidKeyValueStoreImpl
-import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 /**
@@ -22,8 +21,7 @@ val dataModule = module {
     single<CovidKeyValueStore> {
         CovidKeyValueStoreImpl(
             get(),
-            get(),
-            Dispatchers.Default
+            get()
         )
     }
 }

@@ -152,6 +152,7 @@ object TestLibraries {
         const val room = "2.2.5"
         const val navigation = "2.3.0-alpha06"
         const val fragment = "1.3.0-alpha04"
+        const val flowTestObserver = "1.4.1"
     }
 
     const val junit4 = "junit:junit:${Versions.junit4}"
@@ -160,6 +161,7 @@ object TestLibraries {
     const val testExtJUnit = "androidx.test.ext:junit:${Versions.test}"
     const val testRules = "androidx.test:rules:${Versions.test}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    const val flowTestObserver = "com.github.ologe:flow-test-observer:${Versions.flowTestObserver}"
     const val kotlinCoroutinesTest =
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutinesTest}"
     const val threeTenAbp = "org.threeten:threetenbp:${Versions.threeTenAbp}"
