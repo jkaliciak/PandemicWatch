@@ -1,7 +1,7 @@
 package dev.jakal.pandemicwatch.utils
 
-import dev.jakal.pandemicwatch.infrastructure.database.model.CountryEntity
-import dev.jakal.pandemicwatch.infrastructure.database.model.CountryInfoEmbedded
+import dev.jakal.pandemicwatch.infrastructure.database.model.*
+import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 
 class TestUtils {
@@ -25,5 +25,18 @@ class TestUtils {
             testsPerOneMillion = 0.3,
             continent = "continent"
         )
+
+        fun createCountryHistory(countryName: String) = CountryHistoryEntity(
+            country = countryName
+        )
+
+        fun createTimeline(id: Long, countryName: String, type: TimelineType) =
+            TimelineEntity(
+                id = id,
+                country = countryName,
+                date = LocalDate.now(),
+                amount = 123,
+                type = type
+            )
     }
 }
