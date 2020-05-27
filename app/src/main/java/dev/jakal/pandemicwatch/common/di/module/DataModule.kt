@@ -18,6 +18,7 @@ val dataModule = module {
         ).fallbackToDestructiveMigration()
             .build()
     }
+
     single<CovidKeyValueStore> {
         CovidKeyValueStoreImpl(
             get(),

@@ -58,6 +58,15 @@ android {
         exclude("META-INF/LICENSE.md")
         exclude("META-INF/LICENSE-notice.md")
     }
+
+    sourceSets {
+        getByName("androidTest") {
+            java.srcDir("src/sharedTest/java")
+        }
+        getByName("test") {
+            java.srcDir("src/sharedTest/java")
+        }
+    }
 }
 
 tasks.withType<Test> {

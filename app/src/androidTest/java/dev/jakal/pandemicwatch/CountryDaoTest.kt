@@ -41,7 +41,7 @@ class CountryDaoTest {
     @Test
     fun getByCountryNameShouldReturnEntityWhenEntityWasInserted() = runBlocking {
         // given
-        val country = TestUtils.createCountry("Poland")
+        val country = TestUtils.createCountryEntity("Poland")
         countryDao.insert(listOf(country))
 
         // when
@@ -56,7 +56,7 @@ class CountryDaoTest {
     @Test
     fun getByCountryNameShouldReturnNothingWhenEntityWasInsertedAndDeleted() = runBlocking {
         // given
-        val country = TestUtils.createCountry("Poland")
+        val country = TestUtils.createCountryEntity("Poland")
         countryDao.insert(listOf(country))
         countryDao.deleteAll()
 
@@ -85,9 +85,9 @@ class CountryDaoTest {
     @Test
     fun getAllByCountryNameShouldReturnRequestedEntitiesWhenEntitiesWereInserted() = runBlocking {
         // given
-        val poland = TestUtils.createCountry("Poland")
-        val germany = TestUtils.createCountry("Germany")
-        val uk = TestUtils.createCountry("United Kingdom")
+        val poland = TestUtils.createCountryEntity("Poland")
+        val germany = TestUtils.createCountryEntity("Germany")
+        val uk = TestUtils.createCountryEntity("United Kingdom")
         countryDao.insert(listOf(poland, germany, uk))
 
         // when
@@ -103,9 +103,9 @@ class CountryDaoTest {
     @Test
     fun getAllByCountryNameShouldReturnNothingWhenEntitiesWereInsertedAndDeleted() = runBlocking {
         // given
-        val poland = TestUtils.createCountry("Poland")
-        val germany = TestUtils.createCountry("Germany")
-        val uk = TestUtils.createCountry("United Kingdom")
+        val poland = TestUtils.createCountryEntity("Poland")
+        val germany = TestUtils.createCountryEntity("Germany")
+        val uk = TestUtils.createCountryEntity("United Kingdom")
         countryDao.insert(listOf(poland, germany, uk))
         countryDao.deleteAll()
 
@@ -136,7 +136,7 @@ class CountryDaoTest {
     @Test
     fun getAllShouldReturnEntityWhenEntityWasInserted() = runBlocking {
         // given
-        val country = TestUtils.createCountry("Poland")
+        val country = TestUtils.createCountryEntity("Poland")
         countryDao.insert(country)
 
         // when
@@ -152,7 +152,7 @@ class CountryDaoTest {
     @Test
     fun getAllShouldReturnNothingWhenEntityWasInsertedAndDeleted() = runBlocking {
         // given
-        val country = TestUtils.createCountry("Poland")
+        val country = TestUtils.createCountryEntity("Poland")
         countryDao.insert(country)
         countryDao.deleteAll()
 

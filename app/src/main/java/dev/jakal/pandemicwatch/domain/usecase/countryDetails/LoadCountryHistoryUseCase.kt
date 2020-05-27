@@ -12,7 +12,7 @@ class LoadCountryHistoryUseCase(
 ) : FlowUseCase<LoadCountryHistoryParameters, CountryHistory>(defaultDispatcher) {
 
     override fun execute(parameters: LoadCountryHistoryParameters): Flow<CountryHistory> {
-        return covidRepository.getObservableHistory(parameters.countryName)
+        return covidRepository.getCountryHistoryByNameObservable(parameters.countryName)
     }
 }
 

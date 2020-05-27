@@ -37,7 +37,7 @@ class CovidKeyValueStoreImplTest {
     @Test
     fun globalStatsShouldReturnEntityWhenEntityWasInserted() = runBlockingTest {
         // given
-        val globalStats = TestUtils.createGlobalStats()
+        val globalStats = TestUtils.createGlobalStatsEntity()
         covidKeyValueStore.globalStats = globalStats
 
         // when
@@ -50,7 +50,7 @@ class CovidKeyValueStoreImplTest {
     @Test
     fun globalStatsShouldReturnNullWhenEntityWasInsertedAndDeleted() = runBlockingTest {
         // given
-        val globalStats = TestUtils.createGlobalStats()
+        val globalStats = TestUtils.createGlobalStatsEntity()
         covidKeyValueStore.globalStats = globalStats
         covidKeyValueStore.globalStats = null
 
@@ -75,7 +75,7 @@ class CovidKeyValueStoreImplTest {
     @Test
     fun globalStatsObservableShouldEmitEntityWhenEntityWasInserted() = runBlockingTest {
         // given
-        val globalStats = TestUtils.createGlobalStats()
+        val globalStats = TestUtils.createGlobalStatsEntity()
 
         // when
         covidKeyValueStore.globalStatsObservable.test(this) {
@@ -89,7 +89,7 @@ class CovidKeyValueStoreImplTest {
     @Test
     fun globalStatsObservableShouldEmitEntityAndNothingWhenEntityWasInserted() = runBlockingTest {
         // given
-        val globalStats = TestUtils.createGlobalStats()
+        val globalStats = TestUtils.createGlobalStatsEntity()
 
         // when
         covidKeyValueStore.globalStatsObservable.test(this) {
@@ -116,7 +116,7 @@ class CovidKeyValueStoreImplTest {
     @Test
     fun globalHistoryShouldReturnEntityWhenEntityWasInserted() = runBlockingTest {
         // given
-        val globalHistory = TestUtils.createGlobalHistory()
+        val globalHistory = TestUtils.createGlobalHistoryEntity()
         covidKeyValueStore.globalHistory = globalHistory
 
         // when
@@ -129,7 +129,7 @@ class CovidKeyValueStoreImplTest {
     @Test
     fun globalHistoryShouldReturnNullWhenEntityWasInsertedAndDeleted() = runBlockingTest {
         // given
-        val globalHistory = TestUtils.createGlobalHistory()
+        val globalHistory = TestUtils.createGlobalHistoryEntity()
         covidKeyValueStore.globalHistory = globalHistory
         covidKeyValueStore.globalHistory = null
 
@@ -154,7 +154,7 @@ class CovidKeyValueStoreImplTest {
     @Test
     fun globalHistoryObservableShouldEmitEntityWhenEntityWasInserted() = runBlockingTest {
         // given
-        val globalHistory = TestUtils.createGlobalHistory()
+        val globalHistory = TestUtils.createGlobalHistoryEntity()
 
         // when
         covidKeyValueStore.globalHistoryObservable.test(this) {
@@ -168,7 +168,7 @@ class CovidKeyValueStoreImplTest {
     @Test
     fun globalHistoryObservableShouldEmitEntityAndNothingWhenEntityWasInserted() = runBlockingTest {
         // given
-        val globalHistory = TestUtils.createGlobalHistory()
+        val globalHistory = TestUtils.createGlobalHistoryEntity()
 
         // when
         covidKeyValueStore.globalHistoryObservable.test(this) {

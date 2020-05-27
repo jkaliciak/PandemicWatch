@@ -46,10 +46,10 @@ class CountryHistoryDaoAndTimelineDaoTest {
     @Test
     fun getAllCountryHistoryAndTimelineShouldReturnAllEntityWhenEntityWasInserted() = runBlocking {
         // given
-        val countryHistory = TestUtils.createCountryHistory("Poland")
+        val countryHistory = TestUtils.createCountryHistoryEntity("Poland")
         val timelines = listOf(
-            TestUtils.createTimeline(1, "Poland", TimelineType.CASE),
-            TestUtils.createTimeline(2, "Poland", TimelineType.RECOVERY)
+            TestUtils.createTimelineEntity(1, "Poland", TimelineType.CASE),
+            TestUtils.createTimelineEntity(2, "Poland", TimelineType.RECOVERY)
         )
         countryHistoryDao.insert(countryHistory)
         timelineDao.insert(timelines)
@@ -70,10 +70,10 @@ class CountryHistoryDaoAndTimelineDaoTest {
     fun getAllCountryHistoryAndTimelineShouldReturnNothingWhenEntityWasInsertedAndDeleted() =
         runBlocking {
             // given
-            val countryHistory = TestUtils.createCountryHistory("Poland")
+            val countryHistory = TestUtils.createCountryHistoryEntity("Poland")
             val timelines = listOf(
-                TestUtils.createTimeline(1, "Poland", TimelineType.CASE),
-                TestUtils.createTimeline(2, "Poland", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(1, "Poland", TimelineType.CASE),
+                TestUtils.createTimelineEntity(2, "Poland", TimelineType.RECOVERY)
             )
             countryHistoryDao.insert(countryHistory)
             timelineDao.insert(timelines)
@@ -108,15 +108,15 @@ class CountryHistoryDaoAndTimelineDaoTest {
     fun getCountryHistoryAndTimelineShouldReturnRequestedEntitiesWhenEntitiesWereInserted() =
         runBlocking {
             // given
-            val poland = TestUtils.createCountryHistory("Poland")
-            val germany = TestUtils.createCountryHistory("Germany")
+            val poland = TestUtils.createCountryHistoryEntity("Poland")
+            val germany = TestUtils.createCountryHistoryEntity("Germany")
             val polandTimelines = listOf(
-                TestUtils.createTimeline(1, "Poland", TimelineType.CASE),
-                TestUtils.createTimeline(2, "Poland", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(1, "Poland", TimelineType.CASE),
+                TestUtils.createTimelineEntity(2, "Poland", TimelineType.RECOVERY)
             )
             val germanyTimelines = listOf(
-                TestUtils.createTimeline(3, "Germany", TimelineType.CASE),
-                TestUtils.createTimeline(4, "Germany", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(3, "Germany", TimelineType.CASE),
+                TestUtils.createTimelineEntity(4, "Germany", TimelineType.RECOVERY)
             )
             countryHistoryDao.insert(poland, germany)
             timelineDao.insert(polandTimelines.plus(germanyTimelines))
@@ -136,10 +136,10 @@ class CountryHistoryDaoAndTimelineDaoTest {
     fun getCountryHistoryAndTimelineShouldReturnNothingWhenEntitiesWereInsertedDeleted() =
         runBlocking {
             // given
-            val poland = TestUtils.createCountryHistory("Poland")
+            val poland = TestUtils.createCountryHistoryEntity("Poland")
             val polandTimelines = listOf(
-                TestUtils.createTimeline(1, "Poland", TimelineType.CASE),
-                TestUtils.createTimeline(2, "Poland", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(1, "Poland", TimelineType.CASE),
+                TestUtils.createTimelineEntity(2, "Poland", TimelineType.RECOVERY)
             )
             countryHistoryDao.insert(poland)
             timelineDao.insert(polandTimelines)
@@ -172,20 +172,20 @@ class CountryHistoryDaoAndTimelineDaoTest {
     fun getCountryHistoryAndTimelineListShouldReturnRequestedEntitiesWhenEntitiesWereInserted() =
         runBlocking {
             // given
-            val poland = TestUtils.createCountryHistory("Poland")
-            val germany = TestUtils.createCountryHistory("Germany")
-            val uk = TestUtils.createCountryHistory("United Kingdom")
+            val poland = TestUtils.createCountryHistoryEntity("Poland")
+            val germany = TestUtils.createCountryHistoryEntity("Germany")
+            val uk = TestUtils.createCountryHistoryEntity("United Kingdom")
             val polandTimelines = listOf(
-                TestUtils.createTimeline(1, "Poland", TimelineType.CASE),
-                TestUtils.createTimeline(2, "Poland", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(1, "Poland", TimelineType.CASE),
+                TestUtils.createTimelineEntity(2, "Poland", TimelineType.RECOVERY)
             )
             val germanyTimelines = listOf(
-                TestUtils.createTimeline(3, "Germany", TimelineType.CASE),
-                TestUtils.createTimeline(4, "Germany", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(3, "Germany", TimelineType.CASE),
+                TestUtils.createTimelineEntity(4, "Germany", TimelineType.RECOVERY)
             )
             val ukTimelines = listOf(
-                TestUtils.createTimeline(5, "United Kingdom", TimelineType.CASE),
-                TestUtils.createTimeline(6, "United Kingdom", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(5, "United Kingdom", TimelineType.CASE),
+                TestUtils.createTimelineEntity(6, "United Kingdom", TimelineType.RECOVERY)
             )
             countryHistoryDao.insert(poland, germany, uk)
             timelineDao.insert(polandTimelines.plus(germanyTimelines).plus(ukTimelines))
@@ -214,20 +214,20 @@ class CountryHistoryDaoAndTimelineDaoTest {
     fun getCountryHistoryAndTimelineListShouldReturnNothingWhenEntitiesWereInsertedDeleted() =
         runBlocking {
             // given
-            val poland = TestUtils.createCountryHistory("Poland")
-            val germany = TestUtils.createCountryHistory("Germany")
-            val uk = TestUtils.createCountryHistory("United Kingdom")
+            val poland = TestUtils.createCountryHistoryEntity("Poland")
+            val germany = TestUtils.createCountryHistoryEntity("Germany")
+            val uk = TestUtils.createCountryHistoryEntity("United Kingdom")
             val polandTimelines = listOf(
-                TestUtils.createTimeline(1, "Poland", TimelineType.CASE),
-                TestUtils.createTimeline(2, "Poland", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(1, "Poland", TimelineType.CASE),
+                TestUtils.createTimelineEntity(2, "Poland", TimelineType.RECOVERY)
             )
             val germanyTimelines = listOf(
-                TestUtils.createTimeline(3, "Germany", TimelineType.CASE),
-                TestUtils.createTimeline(4, "Germany", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(3, "Germany", TimelineType.CASE),
+                TestUtils.createTimelineEntity(4, "Germany", TimelineType.RECOVERY)
             )
             val ukTimelines = listOf(
-                TestUtils.createTimeline(5, "United Kingdom", TimelineType.CASE),
-                TestUtils.createTimeline(6, "United Kingdom", TimelineType.RECOVERY)
+                TestUtils.createTimelineEntity(5, "United Kingdom", TimelineType.CASE),
+                TestUtils.createTimelineEntity(6, "United Kingdom", TimelineType.RECOVERY)
             )
             countryHistoryDao.insert(poland, germany, uk)
             timelineDao.insert(polandTimelines.plus(germanyTimelines).plus(ukTimelines))
