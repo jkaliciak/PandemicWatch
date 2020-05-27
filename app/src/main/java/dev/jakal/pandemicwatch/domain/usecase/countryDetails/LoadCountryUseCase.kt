@@ -5,6 +5,7 @@ import dev.jakal.pandemicwatch.domain.usecase.FlowUseCase
 import dev.jakal.pandemicwatch.infrastructure.repository.CovidRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 
 class LoadCountryUseCase(
     private val covidRepository: CovidRepository,
@@ -12,7 +13,10 @@ class LoadCountryUseCase(
 ) : FlowUseCase<LoadCountryParameters, Country>(defaultDispatcher) {
 
     override fun execute(parameters: LoadCountryParameters): Flow<Country> {
-        return covidRepository.getObservableCountry(parameters.countryName)
+        return covidRepository.getCountryByNameObservable(parameters.countryName)
+            .combine(covidRepository.getFavoriteCountriesNamesObservable()) { country, favorites ->
+                country.copy(favorite = favorites.contains(country.country))
+            }
     }
 }
 

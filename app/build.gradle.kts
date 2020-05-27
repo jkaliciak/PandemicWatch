@@ -45,6 +45,28 @@ android {
                     "kotlinx.coroutines.ExperimentalCoroutinesApi," +
                     "kotlinx.coroutines.FlowPreview"
     }
+
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/LICENSE.txt")
+        exclude("META-INF/NOTICE")
+        exclude("META-INF/NOTICE.txt")
+        exclude("META-INF/AL2.0")
+        exclude("META-INF/*.kotlin_module")
+        exclude("META-INF/LGPL2.1")
+        exclude("META-INF/LICENSE.md")
+        exclude("META-INF/LICENSE-notice.md")
+    }
+
+    sourceSets {
+        getByName("androidTest") {
+            java.srcDir("src/sharedTest/java")
+        }
+        getByName("test") {
+            java.srcDir("src/sharedTest/java")
+        }
+    }
 }
 
 tasks.withType<Test> {
@@ -55,6 +77,8 @@ dependencies {
 
     // jetbrains
     implementation(Libraries.kotlinStdLib)
+    implementation(Libraries.kotlinCoroutines)
+    implementation(Libraries.kotlinCoroutinesAndroid)
 
     // google
     implementation(Libraries.appCompat)
@@ -121,11 +145,20 @@ dependencies {
     testImplementation(TestLibraries.junit4)
     testImplementation(TestLibraries.kotlinCoroutinesTest)
     testImplementation(TestLibraries.threeTenAbp)
-    testImplementation(TestLibraries.kotest)
+    testImplementation(TestLibraries.kotestRunner)
+    testImplementation(TestLibraries.kotestAssertions)
     testImplementation(TestLibraries.mockk)
     testImplementation(TestLibraries.roomTesting)
+    testImplementation(TestLibraries.flowTestObserver)
+    androidTestImplementation(TestLibraries.testCore)
     androidTestImplementation(TestLibraries.testRunner)
+    androidTestImplementation(TestLibraries.testExtJUnit)
+    androidTestImplementation(TestLibraries.testRules)
+    androidTestImplementation(TestLibraries.kotlinCoroutinesTest)
     androidTestImplementation(TestLibraries.espresso)
+    androidTestImplementation(TestLibraries.kotestRunner)
+    androidTestImplementation(TestLibraries.kotestAssertions)
     androidTestImplementation(TestLibraries.navigationTesting)
+    androidTestImplementation(TestLibraries.flowTestObserver)
     debugImplementation(TestLibraries.fragmentTesting)
 }

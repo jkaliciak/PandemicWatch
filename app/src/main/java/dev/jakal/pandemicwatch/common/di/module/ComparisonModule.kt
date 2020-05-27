@@ -1,8 +1,9 @@
 package dev.jakal.pandemicwatch.common.di.module
 
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadAvailableComparisonCountriesUseCase
-import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesUseCase
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesHistoryUseCase
+import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesUseCase
+import dev.jakal.pandemicwatch.domain.usecase.countryDetails.UpdateCountryHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.countrylist.AddCountryToComparisonUseCase
 import dev.jakal.pandemicwatch.domain.usecase.countrylist.RemoveCountryFromComparisonUseCase
 import dev.jakal.pandemicwatch.domain.usecase.countrylist.ResetComparisonCountriesUseCase
@@ -51,8 +52,15 @@ val comparisonModule = module {
             Dispatchers.Default
         )
     }
+    single {
+        UpdateCountryHistoryUseCase(
+            get(),
+            Dispatchers.Default
+        )
+    }
     viewModel {
         ComparisonViewModel(
+            get(),
             get(),
             get(),
             get(),

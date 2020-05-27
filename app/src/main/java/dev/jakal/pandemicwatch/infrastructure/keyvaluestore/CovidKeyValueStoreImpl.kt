@@ -9,18 +9,13 @@ import hu.autsoft.krate.Krate
 import hu.autsoft.krate.moshi.moshi
 import hu.autsoft.krate.moshi.moshiPref
 import hu.autsoft.krate.stringSetPref
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filterNotNull
 
 class CovidKeyValueStoreImpl(
     context: Context,
-    moshi: Moshi,
-    defaultDispatcher: CoroutineDispatcher
+    moshi: Moshi
 ) : Krate, CovidKeyValueStore {
 
     private var _globalStats: GlobalStatsEntity? by moshiPref("key_global_stats")
@@ -33,67 +28,58 @@ class CovidKeyValueStoreImpl(
         "key_comparison_countries",
         mutableSetOf()
     )
-    private val scope = CoroutineScope(defaultDispatcher)
-    private val globalStatsChannel = ConflatedBroadcastChannel<GlobalStatsEntity>()
-    private val globalHistoryChannel = ConflatedBroadcastChannel<GlobalHistoryEntity>()
-    private val favoriteCountriesChannel = ConflatedBroadcastChannel<Set<String>>()
-    private val comparisonCountriesChannel = ConflatedBroadcastChannel<Set<String>>()
+    private var globalStatsStateFlow = MutableStateFlow<GlobalStatsEntity?>(null)
+    private var globalHistoryStateFlow = MutableStateFlow<GlobalHistoryEntity?>(null)
+    private var favoriteCountriesStateFlow: MutableStateFlow<Set<String>>
+    private var comparisonCountriesStateFlow: MutableStateFlow<Set<String>>
 
     override var globalStats: GlobalStatsEntity?
         get() {
             return _globalStats
         }
         set(value) {
-            scope.launch {
-                value?.let { globalStatsChannel.send(it) }
-            }
+            globalStatsStateFlow.value = value
             _globalStats = value
         }
 
     override val globalStatsObservable: Flow<GlobalStatsEntity>
-        get() = globalStatsChannel.asFlow()
+        get() = globalStatsStateFlow.filterNotNull()
 
     override var globalHistory: GlobalHistoryEntity?
         get() {
             return _globalHistory
         }
         set(value) {
-            scope.launch {
-                value?.let { globalHistoryChannel.send(it) }
-            }
+            globalHistoryStateFlow.value = value
             _globalHistory = value
         }
 
     override val globalHistoryObservable: Flow<GlobalHistoryEntity>
-        get() = globalHistoryChannel.asFlow()
+        get() = globalHistoryStateFlow.filterNotNull()
 
     override var favoriteCountries: Set<String>
         get() {
             return _favoriteCountries
         }
         set(value) {
-            scope.launch {
-                favoriteCountriesChannel.send(value)
-            }
+            favoriteCountriesStateFlow.value = value
             _favoriteCountries = value
         }
 
     override val favoriteCountriesObservable: Flow<Set<String>>
-        get() = favoriteCountriesChannel.asFlow()
+        get() = favoriteCountriesStateFlow
 
     override var comparisonCountries: Set<String>
         get() {
             return _comparisonCountries
         }
         set(value) {
-            scope.launch {
-                comparisonCountriesChannel.send(value)
-            }
+            comparisonCountriesStateFlow.value = value
             _comparisonCountries = value
         }
 
     override val comparisonCountriesObservable: Flow<Set<String>>
-        get() = comparisonCountriesChannel.asFlow()
+        get() = comparisonCountriesStateFlow
 
     override val sharedPreferences: SharedPreferences
 
@@ -103,20 +89,10 @@ class CovidKeyValueStoreImpl(
             "covid_prefs",
             Context.MODE_PRIVATE
         )
-        scope.launch {
-            globalStats?.let { globalStatsChannel.send(it) }
-            globalHistory?.let { globalHistoryChannel.send(it) }
-            favoriteCountriesChannel.send(favoriteCountries)
-            comparisonCountriesChannel.send(comparisonCountries)
-        }
-    }
-
-    internal fun cleanup() {
-        scope.cancel()
-        globalStatsChannel.close()
-        globalHistoryChannel.close()
-        favoriteCountriesChannel.close()
-        comparisonCountriesChannel.close()
+        globalStatsStateFlow.value = globalStats
+        globalHistoryStateFlow.value = globalHistory
+        favoriteCountriesStateFlow = MutableStateFlow(favoriteCountries)
+        comparisonCountriesStateFlow = MutableStateFlow(comparisonCountries)
     }
 }
 

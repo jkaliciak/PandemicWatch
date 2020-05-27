@@ -12,8 +12,6 @@ import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.toDomain
 import dev.jakal.pandemicwatch.infrastructure.network.novelcovidapi.model.*
 import dev.jakal.pandemicwatch.infrastructure.network.novelcovidapi.service.NovelCovidAPIService
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 
 class CovidRepository(
@@ -43,17 +41,14 @@ class CovidRepository(
     }
 
     // country
-    fun getObservableCountries(): Flow<List<Country>> =
-        database.countryDao().getAll()
-            .combine(keyValueStore.favoriteCountriesObservable) { countries, favorites ->
-                countries.map { it.toDomain(favorites.contains(it.country)) }
-            }
+    fun getCountriesObservable(): Flow<List<Country>> =
+        database.countryDao().getAll().map { it.toDomain() }
 
-    fun getObservableCountry(countryName: String): Flow<Country> =
-        database.countryDao().getByCountryName(countryName)
-            .combine(keyValueStore.favoriteCountriesObservable) { country, favorites ->
-                country.toDomain(favorites.contains(country.country))
-            }
+    fun getCountryByNameObservable(countryName: String): Flow<Country> =
+        database.countryDao().getByCountryName(countryName).map { it.toDomain() }
+
+    fun getCountriesByNameObservable(countryNames: Set<String>): Flow<List<Country>> =
+        database.countryDao().getAllByCountryName(countryNames.toList()).map { it.toDomain() }
 
     suspend fun updateCountries(): List<Country> {
         val countriesNetwork = apiService.getCountries()
@@ -71,12 +66,12 @@ class CovidRepository(
     }
 
     // country history
-    fun getObservableHistory(countryName: String): Flow<CountryHistory> =
+    fun getCountryHistoryByNameObservable(countryName: String): Flow<CountryHistory> =
         database.countryHistoryDao().getCountryHistoryAndTimeline(countryName)
             .map { it.toDomain() }
 
-    fun getObservableHistory(): Flow<List<CountryHistory>> =
-        database.countryHistoryDao().getAllCountryHistoryAndTimeline()
+    fun getCountriesHistoryByNameObservable(countryNames: Set<String>): Flow<List<CountryHistory>> =
+        database.countryHistoryDao().getCountryHistoryAndTimeline(countryNames.toList())
             .map { it.toDomain() }
 
     suspend fun updateCountriesHistory(): List<CountryHistory> {
@@ -100,50 +95,27 @@ class CovidRepository(
     }
 
     // favorites
+    fun getFavoriteCountriesNamesObservable(): Flow<Set<String>> =
+        keyValueStore.favoriteCountriesObservable
+
     fun addCountryToFavorites(countryName: String) {
-        val favoriteCountries = keyValueStore.favoriteCountries
-        if (!favoriteCountries.contains(countryName)) {
-            keyValueStore.favoriteCountries = favoriteCountries.plus(countryName).toSet()
-        }
+        keyValueStore.favoriteCountries = keyValueStore.favoriteCountries.plus(countryName)
     }
 
     fun removeCountryFromFavorites(countryName: String) {
-        val favoriteCountries = keyValueStore.favoriteCountries
-        if (favoriteCountries.contains(countryName)) {
-            keyValueStore.favoriteCountries = favoriteCountries.filter { it != countryName }.toSet()
-        }
+        keyValueStore.favoriteCountries = keyValueStore.favoriteCountries.minus(countryName)
     }
 
     // comparison
-    fun getObservableComparisonCountries(): Flow<List<Country>> =
-        keyValueStore.comparisonCountriesObservable.flatMapLatest {
-            database.countryDao().getAllByCountryName(it.toList())
-        }.map { it.toDomain() }
-
-    fun getObservableAvailableComparisonCountries(): Flow<List<Country>> =
-        database.countryDao().getAll()
-            .combine(keyValueStore.comparisonCountriesObservable) { countries, comparisonCountries ->
-                countries.filter { !comparisonCountries.contains(it.country) }
-            }.map { it.toDomain() }
-
-    fun getObservableComparisonCountriesHistory(): Flow<List<CountryHistory>> =
-        keyValueStore.comparisonCountriesObservable.flatMapLatest {
-            database.countryHistoryDao().getCountryHistoryAndTimeline(it.toList())
-        }.map { it.toDomain() }
+    fun getComparisonCountriesNamesObservable(): Flow<Set<String>> =
+        keyValueStore.comparisonCountriesObservable
 
     fun addCountryToComparison(countryName: String) {
-        val comparisonCountries = keyValueStore.comparisonCountries
-        if (!comparisonCountries.contains(countryName)) {
-            keyValueStore.comparisonCountries = comparisonCountries.plus(countryName)
-        }
+        keyValueStore.comparisonCountries = keyValueStore.comparisonCountries.plus(countryName)
     }
 
     fun removeCountryFromComparison(countryName: String) {
-        val comparisonCountries = keyValueStore.comparisonCountries
-        if (comparisonCountries.contains(countryName)) {
-            keyValueStore.comparisonCountries =
-                comparisonCountries.filter { it != countryName }.toSet()
-        }
+        keyValueStore.comparisonCountries = keyValueStore.comparisonCountries.minus(countryName)
     }
 
     fun resetComparisonCountries() {

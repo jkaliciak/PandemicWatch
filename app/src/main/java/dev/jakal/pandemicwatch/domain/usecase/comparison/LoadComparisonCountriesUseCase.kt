@@ -5,6 +5,7 @@ import dev.jakal.pandemicwatch.domain.usecase.FlowUseCase
 import dev.jakal.pandemicwatch.infrastructure.repository.CovidRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
 
 class LoadComparisonCountriesUseCase(
     private val repository: CovidRepository,
@@ -12,6 +13,8 @@ class LoadComparisonCountriesUseCase(
 ) : FlowUseCase<Unit, List<Country>>(defaultDispatcher) {
 
     override fun execute(parameters: Unit): Flow<List<Country>> {
-        return repository.getObservableComparisonCountries()
+        return repository.getComparisonCountriesNamesObservable().flatMapLatest {
+            repository.getCountriesByNameObservable(it)
+        }
     }
 }
