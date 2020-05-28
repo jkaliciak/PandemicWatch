@@ -160,5 +160,8 @@ dependencies {
     androidTestImplementation(TestLibraries.kotestAssertions)
     androidTestImplementation(TestLibraries.navigationTesting)
     androidTestImplementation(TestLibraries.flowTestObserver)
+    androidTestImplementation(TestLibraries.workManagerTesting)
+    androidTestImplementation(TestLibraries.koinTest)
+    androidTestImplementation(TestLibraries.mockkAndroid)
     debugImplementation(TestLibraries.fragmentTesting)
 }

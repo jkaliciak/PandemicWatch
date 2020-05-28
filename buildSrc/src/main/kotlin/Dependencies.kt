@@ -153,14 +153,21 @@ object TestLibraries {
         const val navigation = "2.3.0-alpha06"
         const val fragment = "1.3.0-alpha04"
         const val flowTestObserver = "1.4.1"
+        const val workManager = "2.3.4"
+        const val koin = "2.1.5"
     }
 
-    const val junit4 = "junit:junit:${Versions.junit4}"
     const val testCore = "androidx.test:core:${Versions.test}"
     const val testRunner = "androidx.test:runner:${Versions.test}"
     const val testExtJUnit = "androidx.test.ext:junit:${Versions.test}"
     const val testRules = "androidx.test:rules:${Versions.test}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    const val roomTesting = "androidx.room:room-testing:${Versions.room}"
+    const val navigationTesting = "androidx.navigation:navigation-testing:${Versions.navigation}"
+    const val fragmentTesting = "androidx.fragment:fragment-testing:${Versions.fragment}"
+    const val workManagerTesting = "androidx.work:work-testing:${Versions.workManager}"
+    const val koinTest = "org.koin:koin-test:${Versions.koin}"
+    const val junit4 = "junit:junit:${Versions.junit4}"
     const val flowTestObserver = "com.github.ologe:flow-test-observer:${Versions.flowTestObserver}"
     const val kotlinCoroutinesTest =
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutinesTest}"
@@ -168,7 +175,5 @@ object TestLibraries {
     const val kotestRunner = "io.kotest:kotest-runner-junit5-jvm:${Versions.kotest}"
     const val kotestAssertions = "io.kotest:kotest-assertions-core-jvm:${Versions.kotest}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
-    const val roomTesting = "androidx.room:room-testing:${Versions.room}"
-    const val navigationTesting = "androidx.navigation:navigation-testing:${Versions.navigation}"
-    const val fragmentTesting = "androidx.fragment:fragment-testing:${Versions.fragment}"
+    const val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
 }

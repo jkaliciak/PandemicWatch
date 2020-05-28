@@ -119,22 +119,6 @@ class TestUtils {
             recovered = emptyMap()
         )
 
-        fun createGlobalStats() = GlobalStats(
-            cases = 10,
-            todayCases = 1,
-            deaths = 2,
-            todayDeaths = 1,
-            recovered = 5,
-            active = 3,
-            critical = 1,
-            casesPerOneMillion = 0.3,
-            deathsPerOneMillion = 0.1,
-            updated = LocalDateTime.now(),
-            affectedCountries = 215,
-            tests = 10,
-            testsPerOneMillion = 0.2
-        )
-
         fun createHttpException(errorCode: Int) =
             HttpException(
                 Response.error<String>(
