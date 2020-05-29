@@ -3,7 +3,7 @@ const val kotlinVersion = "1.3.72"
 object BuildPlugins {
 
     private object Versions {
-        const val buildToolsVersion = "4.0.0-rc01"
+        const val buildToolsVersion = "4.0.0"
         const val navigation = "2.3.0-alpha06"
     }
 
