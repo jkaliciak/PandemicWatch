@@ -174,6 +174,7 @@ object TestLibraries {
     const val threeTenAbp = "org.threeten:threetenbp:${Versions.threeTenAbp}"
     const val kotestRunner = "io.kotest:kotest-runner-junit5-jvm:${Versions.kotest}"
     const val kotestAssertions = "io.kotest:kotest-assertions-core-jvm:${Versions.kotest}"
+    const val kotestProperty = "io.kotest:kotest-property-jvm:${Versions.kotest}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
     const val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
 }

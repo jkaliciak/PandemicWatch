@@ -1,7 +1,8 @@
 package dev.jakal.pandemicwatch.utils
 
 import dev.jakal.pandemicwatch.common.utils.toLong
-import dev.jakal.pandemicwatch.domain.model.GlobalStats
+import dev.jakal.pandemicwatch.domain.model.CountryHistory
+import dev.jakal.pandemicwatch.domain.model.Timeline
 import dev.jakal.pandemicwatch.infrastructure.database.model.*
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalHistoryEntity
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalStatsEntity
@@ -117,6 +118,11 @@ class TestUtils {
             cases = emptyMap(),
             deaths = emptyMap(),
             recovered = emptyMap()
+        )
+
+        fun createCountryHistory(countryName: String, timeline: Timeline) = CountryHistory(
+            country = countryName,
+            timeline = timeline
         )
 
         fun createHttpException(errorCode: Int) =
