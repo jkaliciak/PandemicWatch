@@ -21,17 +21,16 @@ class UpdateAllDataWorker(context: Context, params: WorkerParameters) :
     private val updateCountriesHistoryUseCase: UpdateCountriesHistoryUseCase by inject()
 
     override suspend fun doWork(): Result = coroutineScope {
-        // TODO maybe enqueue a separate worker for each update usecase
         val results = listOf(
             updateGlobalStatsUseCase(Unit),
             updateGlobalHistoryUseCase(Unit),
             updateCountriesUseCase(Unit),
             updateCountriesHistoryUseCase(Unit)
         )
-        if (results.any { it is UseCaseResult.Error }) {
-            Result.retry()
-        } else {
+        if (results.all { it is UseCaseResult.Success }) {
             Result.success()
+        } else {
+            Result.retry()
         }
     }
 
