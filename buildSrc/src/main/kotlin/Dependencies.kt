@@ -21,7 +21,7 @@ object BuildPlugins {
 object AndroidSdk {
 
     const val compileSdkVersion = 29
-    const val minSdkVersion = 21
+    const val minSdkVersion = 23
     const val targetSdkVersion = compileSdkVersion
 }
 

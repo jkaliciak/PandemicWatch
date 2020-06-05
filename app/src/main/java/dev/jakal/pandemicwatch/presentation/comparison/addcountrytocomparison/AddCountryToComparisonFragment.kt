@@ -1,17 +1,17 @@
 package dev.jakal.pandemicwatch.presentation.comparison.addcountrytocomparison
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.card.MaterialCardView
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentAddCountryToComparisonBinding
+import dev.jakal.pandemicwatch.presentation.common.KeyboardHelper
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
 import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
@@ -22,6 +22,12 @@ class AddCountryToComparisonFragment : Fragment() {
     private val viewModel: ComparisonViewModel by sharedViewModel()
     private lateinit var binding: FragmentAddCountryToComparisonBinding
     private lateinit var adapter: CountriesAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +45,25 @@ class AddCountryToComparisonFragment : Fragment() {
         binding.viewmodel = viewModel
         setupRecyclerView()
         observeCountries()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.add_country_to_comparison_menu, menu)
+        (menu.findItem(R.id.menuSearch).actionView as SearchView).apply {
+            queryHint = getString(R.string.search_hint)
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    KeyboardHelper.hideKeyboardFrom(context, binding.root)
+                    return true
+                }
+
+                override fun onQueryTextChange(query: String?): Boolean {
+                    adapter.filter.filter(query)
+                    return true
+                }
+            })
+        }
     }
 
     private fun setupRecyclerView() {
@@ -61,7 +86,7 @@ class AddCountryToComparisonFragment : Fragment() {
 
     private fun observeCountries() {
         viewModel.comparison.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it.availableCountries.toMutableList())
+            adapter.submitCountries(it.availableCountries.toMutableList())
         })
     }
 }
