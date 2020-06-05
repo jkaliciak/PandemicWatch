@@ -91,7 +91,7 @@ class CreateComparisonFragment : Fragment() {
 
     private fun observeComparison() {
         viewModel.comparison.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it.comparisonCountries.toMutableList())
+            adapter.submitCountries(it.comparisonCountries.toMutableList())
             updateMenu(it.comparisonCountries.size)
         })
     }

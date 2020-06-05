@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">PandemicWatch</string>
 
+    <!--  Search  -->
+    <string name="search_hint">Search country…</string>
+    <string name="menu_item_search">Search</string>
+
     <!-- Alert dialogs -->
     <string name="alert_dialog_positive_button">OK</string>
     <string name="alert_dialog_negative_button">Cancel</string>
@@ -34,12 +38,12 @@
     <string name="country_details_cases_chart_label">Cases chart</string>
     <string name="country_details_deaths_chart_label">Deaths chart</string>
     <string name="country_details_recovered_chart_label">Recovered chart</string>
+    <string name="menu_item_add_to_favorites">Add to favorites</string>
+    <string name="menu_item_remove_from_favorites">Remove from favorites</string>
 
     <!-- Country list screen -->
     <string name="country_list_country_flag_content_description">Country flag</string>
     <string name="message_content_not_initialized">Loading initial data</string>
-    <string name="menu_item_add_to_favorites">Add to favorites</string>
-    <string name="menu_item_remove_from_favorites">Remove from favorites</string>
 
     <!-- Add country to comparison screen -->
     <string name="menu_item_reset_comparison">Remove all</string>
