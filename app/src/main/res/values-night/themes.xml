@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  Themes  -->
+    <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/mineShaftDark</item>
+        <item name="colorPrimaryVariant">@color/tundora</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/guardsmanRed</item>
+        <item name="colorSecondaryVariant">@color/outrageousOrange</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorError">@color/blazeOrange</item>
+        <item name="colorOnError">@color/black</item>
+        <item name="colorSurface">@color/tundora</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:colorBackground">@color/mineShaftLight</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorAccent">@color/guardsmanRed</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.AlertDialog</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
+        <item name="autoCompleteTextViewStyle">@style/Widget.App.AutoCompleteTextView</item>
+    </style>
+
+</resources>

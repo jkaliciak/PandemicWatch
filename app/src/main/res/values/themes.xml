@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  Themes  -->
+    <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/guardsmanRed</item>
+        <item name="colorPrimaryVariant">@color/outrageousOrange</item>
+        <item name="colorPrimaryDark">@color/sangria</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/tundora</item>
+        <item name="colorSecondaryVariant">@color/codGray</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorError">@color/pizazz</item>
+        <item name="colorOnError">@color/black</item>
+        <item name="colorSurface">@color/alabaster</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="android:colorBackground">@color/gallery</item>
+        <item name="colorOnBackground">@color/black</item>
+        <item name="colorAccent">@color/guardsmanRed</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.AlertDialog</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
+        <item name="autoCompleteTextViewStyle">@style/Widget.App.AutoCompleteTextView</item>
+    </style>
+
+    <!--  Overlays  -->
+    <style name="ThemeOverlay.App.Toolbar" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="popupTheme">@style/ThemeOverlay.App.Toolbar.PopupTheme</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar.PopupTheme" parent="">
+        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.AlertDialog.Message
+        </item>
+    </style>
+
+</resources>

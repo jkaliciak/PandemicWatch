@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#d50000</color>
-    <color name="colorPrimaryVariant">#ff5131</color>
-    <color name="colorPrimaryDark">#9b0000</color>
-    <color name="colorOnPrimary">#ffffff</color>
+    <color name="guardsmanRed">#d50000</color>
+    <color name="sangria">#9b0000</color>
+    <color name="outrageousOrange">#ff5131</color>
+    <color name="pizazz">#ff9100</color>
+    <color name="blazeOrange">#ff6f00</color>
+    <color name="white">#ffffff</color>
+    <color name="alabaster">#fafafa</color>
+    <color name="gallery">#eeeeee</color>
+    <color name="mineShaftDark">#212121</color>
+    <color name="mineShaftLight">#373737</color>
+    <color name="tundora">#424242</color>
+    <color name="codGray">#1b1b1b</color>
+    <color name="black">#000000</color>
+    <color name="azureRadiance">#0091ea</color>
+    <color name="endeavour">#0064b7</color>
+    <color name="jacksonsPurple">#1a237e</color>
+    <color name="amethyst">#9c4dcc</color>
+    <color name="seance">#6a1b9a</color>
+    <color name="christalle">#38006b</color>
+    <color name="malachite">#00c853</color>
+    <color name="funGreen">#009624</color>
+    <color name="crusoe">#005005</color>
+    <color name="persianRed">#d32f2f</color>
+    <color name="frenchRose">#ec407a</color>
+    <color name="gorse">#ffeb3b</color>
 
-    <color name="colorSecondary">#424242</color>
-    <color name="colorSecondaryVariant">#1b1b1b</color>
-    <color name="colorOnSecondary">#ffffff</color>
+    <color name="colorChartCaseBackground">@color/azureRadiance</color>
+    <color name="colorChartCaseOnBackground">@color/white</color>
+    <color name="colorChartCaseForeground">@color/endeavour</color>
+    <color name="colorChartCaseOnForeground">@color/white</color>
 
-    <color name="colorSurface">#fafafa</color>
-    <color name="colorOnSurface">#000000</color>
+    <color name="colorChartDeathBackground">@color/amethyst</color>
+    <color name="colorChartDeathOnBackground">@color/white</color>
+    <color name="colorChartDeathForeground">@color/seance</color>
+    <color name="colorChartDeathOnForeground">@color/white</color>
 
-    <color name="colorBackground">#eeeeee</color>
-    <color name="colorOnBackground">#000000</color>
+    <color name="colorChartRecoveredBackground">@color/malachite</color>
+    <color name="colorChartRecoveredOnBackground">@color/white</color>
+    <color name="colorChartRecoveredForeground">@color/funGreen</color>
+    <color name="colorChartRecoveredOnForeground">@color/white</color>
 
-    <color name="colorError">#ff9100</color>
-    <color name="colorOnError">#000000</color>
-
-    <color name="colorAccent">#002171</color>
-
-    <color name="colorChartCaseBackground">#0091ea</color>
-    <color name="colorChartCaseOnBackground">#ffffff</color>
-    <color name="colorChartCaseForeground">#0064b7</color>
-    <color name="colorChartCaseOnForeground">#ffffff</color>
-
-    <color name="colorChartDeathBackground">#263238</color>
-    <color name="colorChartDeathOnBackground">#ffffff</color>
-    <color name="colorChartDeathForeground">#000a12</color>
-    <color name="colorChartDeathOnForeground">#ffffff</color>
-
-    <color name="colorChartRecoveredBackground">#00c853</color>
-    <color name="colorChartRecoveredOnBackground">#ffffff</color>
-    <color name="colorChartRecoveredForeground">#009624</color>
-    <color name="colorChartRecoveredOnForeground">#ffffff</color>
-
-    <color name="colorChartComparison1">#d32f2f</color>
-    <color name="colorChartComparison2">#ec407a</color>
-    <color name="colorChartComparison3">#ffeb3b</color>
-    <color name="colorChartComparison4">#9c27b0</color>
-    <color name="colorChartOnForeground">#ffffff</color>
+    <color name="colorChartComparison1">@color/persianRed</color>
+    <color name="colorChartComparison2">@color/frenchRose</color>
+    <color name="colorChartComparison3">@color/gorse</color>
+    <color name="colorChartComparison4">@color/jacksonsPurple</color>
+    <color name="colorChartOnForeground">@color/white</color>
 </resources>

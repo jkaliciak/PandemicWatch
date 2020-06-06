@@ -11,15 +11,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.domain.model.Country
-
+import dev.jakal.pandemicwatch.presentation.common.getThemeColor
 
 abstract class SwipeDeleteCallback(
     private val context: Context
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
     private val iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_delete_24)
-    private val backgroundDrawable =
-        ColorDrawable(ContextCompat.getColor(context, R.color.colorAccent))
+    private val backgroundDrawable = ColorDrawable(context.getThemeColor(R.attr.colorAccent))
 
     override fun onMove(
         recyclerView: RecyclerView,

@@ -1,6 +1,8 @@
 package dev.jakal.pandemicwatch
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.work.WorkManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dev.jakal.pandemicwatch.common.di.allModules
@@ -24,6 +26,11 @@ class PandemicWatchApplication : Application() {
         configureDateTime()
         configureLogging()
         configureWorkManager()
+        configureDayNightMode()
+    }
+
+    private fun configureDayNightMode() {
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
     }
 
     private fun configureDependencyInjection() {
