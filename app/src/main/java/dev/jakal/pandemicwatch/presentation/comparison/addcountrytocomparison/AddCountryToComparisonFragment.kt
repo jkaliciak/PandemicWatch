@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.card.MaterialCardView
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentAddCountryToComparisonBinding
+import dev.jakal.pandemicwatch.databinding.FragmentCountryListBinding
 import dev.jakal.pandemicwatch.presentation.common.KeyboardHelper
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
 import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
@@ -20,7 +21,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class AddCountryToComparisonFragment : Fragment() {
 
     private val viewModel: ComparisonViewModel by sharedViewModel()
-    private lateinit var binding: FragmentAddCountryToComparisonBinding
+    private val binding get() = _binding!!
+    private var _binding: FragmentAddCountryToComparisonBinding? = null
     private lateinit var adapter: CountriesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +36,13 @@ class AddCountryToComparisonFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAddCountryToComparisonBinding.inflate(inflater, container, false)
+        _binding = FragmentAddCountryToComparisonBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

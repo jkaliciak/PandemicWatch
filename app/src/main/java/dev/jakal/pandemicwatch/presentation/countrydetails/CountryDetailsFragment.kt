@@ -27,7 +27,8 @@ class CountryDetailsFragment : Fragment() {
             args.countryName
         )
     }
-    private lateinit var binding: FragmentCountryDetailsBinding
+    private val binding get() = _binding!!
+    private var _binding: FragmentCountryDetailsBinding? = null
     private var addToFavoritesMenuItem: MenuItem? = null
     private var removeFromFavoritesMenuItem: MenuItem? = null
 
@@ -43,8 +44,13 @@ class CountryDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCountryDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentCountryDetailsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

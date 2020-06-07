@@ -21,4 +21,6 @@ interface CovidKeyValueStore {
     var comparisonCountries: Set<String>
 
     val comparisonCountriesObservable: Flow<Set<String>>
+
+    var nightMode: Int
 }

@@ -4,13 +4,15 @@
     <item
         android:id="@+id/menuAddToFavorites"
         android:enabled="true"
-        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_not_favorite_24"
-        android:title="@string/menu_item_add_to_favorites" />
+        android:orderInCategory="10"
+        android:title="@string/menu_item_add_to_favorites"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuRemoveFromFavorites"
         android:enabled="true"
-        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_favorite_24"
-        android:title="@string/menu_item_remove_from_favorites" />
+        android:orderInCategory="20"
+        android:title="@string/menu_item_remove_from_favorites"
+        app:showAsAction="ifRoom" />
 </menu>

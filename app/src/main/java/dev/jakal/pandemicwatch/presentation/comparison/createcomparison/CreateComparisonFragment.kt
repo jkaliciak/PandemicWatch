@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.jakal.pandemicwatch.R
+import dev.jakal.pandemicwatch.databinding.FragmentComparisonBinding
 import dev.jakal.pandemicwatch.databinding.FragmentCreateComparisonBinding
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
 import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
@@ -20,7 +21,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class CreateComparisonFragment : Fragment() {
 
     private val viewModel: ComparisonViewModel by sharedViewModel()
-    private lateinit var binding: FragmentCreateComparisonBinding
+    private val binding get() = _binding!!
+    private var _binding: FragmentCreateComparisonBinding? = null
     private lateinit var adapter: CountriesAdapter
     private var addToComparisonMenuItem: MenuItem? = null
     private var resetComparison: MenuItem? = null
@@ -36,8 +38,13 @@ class CreateComparisonFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCreateComparisonBinding.inflate(inflater, container, false)
+        _binding = FragmentCreateComparisonBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

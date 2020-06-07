@@ -24,8 +24,13 @@ import org.koin.core.parameter.parametersOf
 class CountryListFragment : Fragment() {
 
     private val viewModel: CountryListViewModel by viewModel { parametersOf(lifecycleScope.id) }
-    private lateinit var binding: FragmentCountryListBinding
+    private val binding get() = _binding!!
+    private var _binding: FragmentCountryListBinding? = null
     private lateinit var adapter: CountriesAdapter
+    private val onPreDrawListener = ViewTreeObserver.OnPreDrawListener {
+        startPostponedEnterTransition()
+        true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +43,13 @@ class CountryListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCountryListBinding.inflate(inflater, container, false)
+        _binding = FragmentCountryListBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,10 +99,15 @@ class CountryListFragment : Fragment() {
         binding.rvCountries.apply {
             addItemDecoration(SpacingItemDecoration(resources.getDimensionPixelOffset(R.dimen.spacing_medium)))
             adapter = this@CountryListFragment.adapter
-            viewTreeObserver.addOnPreDrawListener {
-                startPostponedEnterTransition()
-                true
-            }
+            viewTreeObserver.addOnPreDrawListener(onPreDrawListener)
+            addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+                override fun onViewAttachedToWindow(p0: View?) {
+                }
+
+                override fun onViewDetachedFromWindow(p0: View?) {
+                    viewTreeObserver.removeOnPreDrawListener(onPreDrawListener)
+                }
+            })
         }
     }
 

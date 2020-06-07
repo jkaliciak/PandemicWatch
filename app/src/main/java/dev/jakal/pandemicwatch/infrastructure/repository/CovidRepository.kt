@@ -121,4 +121,11 @@ class CovidRepository(
     fun resetComparisonCountries() {
         keyValueStore.comparisonCountries = emptySet()
     }
+
+    // nightmode
+    fun getNightMode() = keyValueStore.nightMode
+
+    fun setNightMode(nightMode: Int) {
+        keyValueStore.nightMode = nightMode
+    }
 }

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import dev.jakal.pandemicwatch.databinding.FragmentComparisonBinding
+import dev.jakal.pandemicwatch.databinding.FragmentOverviewBinding
 import dev.jakal.pandemicwatch.presentation.common.chart.setupChart
 import dev.jakal.pandemicwatch.presentation.common.chart.toCaseLineDataConfigs
 import dev.jakal.pandemicwatch.presentation.common.chart.toDeathsLineDataConfigs
@@ -20,15 +21,21 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class ComparisonFragment : Fragment() {
 
     private val viewModel: ComparisonViewModel by sharedViewModel()
-    private lateinit var binding: FragmentComparisonBinding
+    private val binding get() = _binding!!
+    private var _binding: FragmentComparisonBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentComparisonBinding.inflate(inflater, container, false)
+        _binding = FragmentComparisonBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

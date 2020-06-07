@@ -20,11 +20,10 @@ private const val TIMEOUT_SECONDS = 10L
 val networkModule = module {
     single { Moshi.Builder().build() }
     single {
-        HttpLoggingInterceptor().apply {
-//            if (BuildConfig.DEBUG_MODE) {
-            level = HttpLoggingInterceptor.Level.BODY
+        HttpLoggingInterceptor()
+//            .apply {
+//                level = HttpLoggingInterceptor.Level.BODY
 //            }
-        }
     }
     single {
         OkHttpClient.Builder()

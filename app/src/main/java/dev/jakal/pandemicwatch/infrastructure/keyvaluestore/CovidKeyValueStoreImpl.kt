@@ -2,10 +2,12 @@ package dev.jakal.pandemicwatch.infrastructure.keyvaluestore
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
 import com.squareup.moshi.Moshi
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalHistoryEntity
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalStatsEntity
 import hu.autsoft.krate.Krate
+import hu.autsoft.krate.intPref
 import hu.autsoft.krate.moshi.moshi
 import hu.autsoft.krate.moshi.moshiPref
 import hu.autsoft.krate.stringSetPref
@@ -80,6 +82,8 @@ class CovidKeyValueStoreImpl(
 
     override val comparisonCountriesObservable: Flow<Set<String>>
         get() = comparisonCountriesStateFlow
+
+    override var nightMode: Int by intPref("key_nightmode", AppCompatDelegate.getDefaultNightMode())
 
     override val sharedPreferences: SharedPreferences
 

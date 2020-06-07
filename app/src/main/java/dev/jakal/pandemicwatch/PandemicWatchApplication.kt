@@ -1,12 +1,11 @@
 package dev.jakal.pandemicwatch
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.work.WorkManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dev.jakal.pandemicwatch.common.di.allModules
 import dev.jakal.pandemicwatch.infrastructure.workmanager.UpdateAllDataWorker.Companion.enqueueUpdateDataWorker
+import dev.jakal.pandemicwatch.presentation.common.ThemeHelper
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -18,6 +17,7 @@ class PandemicWatchApplication : Application() {
 
     private val loggingTree: Timber.Tree by inject()
     private val workManager: WorkManager by inject()
+    private val themeHelper: ThemeHelper by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -27,10 +27,6 @@ class PandemicWatchApplication : Application() {
         configureLogging()
         configureWorkManager()
         configureDayNightMode()
-    }
-
-    private fun configureDayNightMode() {
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
     }
 
     private fun configureDependencyInjection() {
@@ -53,5 +49,9 @@ class PandemicWatchApplication : Application() {
 
     private fun configureWorkManager() {
         workManager.enqueueUpdateDataWorker()
+    }
+
+    private fun configureDayNightMode() {
+        themeHelper.initDefaultNightMode()
     }
 }

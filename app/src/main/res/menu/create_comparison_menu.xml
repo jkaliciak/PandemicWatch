@@ -4,13 +4,15 @@
     <item
         android:id="@+id/menuAddToComparison"
         android:enabled="true"
-        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_add_24"
-        android:title="@string/menu_item_add_to_comparison" />
+        android:orderInCategory="10"
+        android:title="@string/menu_item_add_to_comparison"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuResetComparison"
         android:enabled="true"
-        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_delete_sweep_24"
-        android:title="@string/menu_item_reset_comparison" />
+        android:orderInCategory="20"
+        android:title="@string/menu_item_reset_comparison"
+        app:showAsAction="ifRoom" />
 </menu>
