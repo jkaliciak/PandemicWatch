@@ -1,9 +1,6 @@
 package dev.jakal.pandemicwatch.presentation.comparison
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dev.jakal.pandemicwatch.domain.result.Result
 import dev.jakal.pandemicwatch.domain.result.onError
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadAvailableComparisonCountriesUseCase
@@ -25,12 +22,17 @@ class ComparisonViewModel(
     private val addCountryToComparisonUseCase: AddCountryToComparisonUseCase,
     private val removeCountryFromComparisonUseCase: RemoveCountryFromComparisonUseCase,
     private val resetComparisonCountriesUseCase: ResetComparisonCountriesUseCase,
-    private val updateCountryHistoryUseCase: UpdateCountryHistoryUseCase
+    private val updateCountryHistoryUseCase: UpdateCountryHistoryUseCase,
+    private val handle: SavedStateHandle
 ) : ViewModel() {
 
     val comparison: LiveData<ComparisonPresentation>
         get() = _comparison
     private val _comparison = MutableLiveData(ComparisonPresentation())
+
+    val searchQuery: LiveData<String?>
+        get() = _searchQuery
+    private val _searchQuery = handle.getLiveData<String?>(KEY_SEARCH_QUERY)
 
     init {
         viewModelScope.launch {
@@ -106,7 +108,15 @@ class ComparisonViewModel(
         }
     }
 
+    internal fun search(query: String?) {
+        handle.set(KEY_SEARCH_QUERY, query)
+    }
+
     private fun handleError(throwable: Exception) {
         // TODO handle ui error indication
+    }
+
+    companion object {
+        private const val KEY_SEARCH_QUERY = "key_search_query"
     }
 }

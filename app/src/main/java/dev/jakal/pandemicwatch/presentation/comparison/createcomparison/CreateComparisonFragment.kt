@@ -12,11 +12,11 @@ import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
 import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
 import dev.jakal.pandemicwatch.presentation.common.adapter.setupSwipeDelete
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class CreateComparisonFragment : Fragment() {
 
-    private val viewModel: ComparisonViewModel by sharedViewModel()
+    private val viewModel: ComparisonViewModel by stateViewModel()
     private val binding get() = _binding!!
     private var _binding: FragmentCreateComparisonBinding? = null
     private lateinit var adapter: CountriesAdapter

@@ -23,14 +23,13 @@ import org.koin.core.parameter.parametersOf
 
 class CountryListFragment : Fragment() {
 
-    private val viewModel: CountryListViewModel by stateViewModel(bundle = this.arguments) {
+    private val viewModel: CountryListViewModel by stateViewModel(bundle = arguments) {
         parametersOf(
             lifecycleScope.id
         )
     }
     private val binding get() = _binding!!
     private var _binding: FragmentCountryListBinding? = null
-    private lateinit var searchView: SearchView
     private lateinit var adapter: CountriesAdapter
     private val onPreDrawListener = ViewTreeObserver.OnPreDrawListener {
         startPostponedEnterTransition()
@@ -39,9 +38,6 @@ class CountryListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        viewModel = getStateViewModel(bundle = savedInstanceState) {
-//            parametersOf(lifecycleScope.id)
-//        }
 
         setHasOptionsMenu(true)
     }

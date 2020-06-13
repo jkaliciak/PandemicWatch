@@ -11,16 +11,15 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.card.MaterialCardView
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentAddCountryToComparisonBinding
-import dev.jakal.pandemicwatch.databinding.FragmentCountryListBinding
 import dev.jakal.pandemicwatch.presentation.common.KeyboardHelper
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
 import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class AddCountryToComparisonFragment : Fragment() {
 
-    private val viewModel: ComparisonViewModel by sharedViewModel()
+    private val viewModel: ComparisonViewModel by stateViewModel(bundle = arguments)
     private val binding get() = _binding!!
     private var _binding: FragmentAddCountryToComparisonBinding? = null
     private lateinit var adapter: CountriesAdapter
@@ -57,19 +56,27 @@ class AddCountryToComparisonFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.add_country_to_comparison_menu, menu)
-        (menu.findItem(R.id.menuSearch).actionView as SearchView).apply {
-            queryHint = getString(R.string.search_hint)
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    KeyboardHelper.hideKeyboardFrom(context, binding.root)
-                    return true
-                }
+        menu.findItem(R.id.menuSearch).apply {
+            if (!viewModel.searchQuery.value.isNullOrEmpty()) {
+                expandActionView()
+            }
+            (actionView as SearchView).apply {
+                setQuery(viewModel.searchQuery.value, false)
+                (menu.findItem(R.id.menuSearch).actionView as SearchView).apply {
+                    queryHint = getString(R.string.search_hint)
+                    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            KeyboardHelper.hideKeyboardFrom(context, binding.root)
+                            return true
+                        }
 
-                override fun onQueryTextChange(query: String?): Boolean {
-                    adapter.filter.filter(query)
-                    return true
+                        override fun onQueryTextChange(query: String?): Boolean {
+                            viewModel.search(query = query)
+                            return true
+                        }
+                    })
                 }
-            })
+            }
         }
     }
 
@@ -94,6 +101,9 @@ class AddCountryToComparisonFragment : Fragment() {
     private fun observeCountries() {
         viewModel.comparison.observe(viewLifecycleOwner, Observer {
             adapter.submitCountries(it.availableCountries.toMutableList())
+        })
+        viewModel.searchQuery.observe(viewLifecycleOwner, Observer {
+            adapter.filter.filter(it)
         })
     }
 }

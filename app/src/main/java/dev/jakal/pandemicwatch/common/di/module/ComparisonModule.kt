@@ -1,5 +1,6 @@
 package dev.jakal.pandemicwatch.common.di.module
 
+import androidx.lifecycle.SavedStateHandle
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadAvailableComparisonCountriesUseCase
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesHistoryUseCase
 import dev.jakal.pandemicwatch.domain.usecase.comparison.LoadComparisonCountriesUseCase
@@ -58,7 +59,7 @@ val comparisonModule = module {
             Dispatchers.Default
         )
     }
-    viewModel {
+    viewModel { (handle: SavedStateHandle) ->
         ComparisonViewModel(
             get(),
             get(),
@@ -66,7 +67,8 @@ val comparisonModule = module {
             get(),
             get(),
             get(),
-            get()
+            get(),
+            handle
         )
     }
 }

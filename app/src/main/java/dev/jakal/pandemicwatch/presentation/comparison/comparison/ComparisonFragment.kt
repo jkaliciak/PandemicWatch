@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import dev.jakal.pandemicwatch.databinding.FragmentComparisonBinding
-import dev.jakal.pandemicwatch.databinding.FragmentOverviewBinding
 import dev.jakal.pandemicwatch.presentation.common.chart.setupChart
 import dev.jakal.pandemicwatch.presentation.common.chart.toCaseLineDataConfigs
 import dev.jakal.pandemicwatch.presentation.common.chart.toDeathsLineDataConfigs
@@ -16,11 +15,11 @@ import dev.jakal.pandemicwatch.presentation.common.chart.toRecoveredLineDataConf
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
 import dev.jakal.pandemicwatch.presentation.countrydetails.CountryDetailsFragmentDirections
 import dev.jakal.pandemicwatch.presentation.linechart.LineChartConfig
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class ComparisonFragment : Fragment() {
 
-    private val viewModel: ComparisonViewModel by sharedViewModel()
+    private val viewModel: ComparisonViewModel by stateViewModel()
     private val binding get() = _binding!!
     private var _binding: FragmentComparisonBinding? = null
 
