@@ -57,6 +57,7 @@ object Libraries {
         const val fragment = "1.3.0-alpha04"
         const val mpAndroidChart = "v3.1.0"
         const val workManager = "2.3.4"
+        const val security = "1.0.0-rc02"
     }
 
     // jetbrains
@@ -96,6 +97,7 @@ object Libraries {
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragment}"
     const val workManager = "androidx.work:work-runtime:${Versions.workManager}"
     const val workManagerKtx = "androidx.work:work-runtime-ktx:${Versions.workManager}"
+    const val security = "androidx.security:security-crypto:${Versions.security}"
 
     // dependency injection
     const val koinAndroid = "org.koin:koin-android:${Versions.koin}"

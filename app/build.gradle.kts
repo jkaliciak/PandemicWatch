@@ -102,6 +102,7 @@ dependencies {
     implementation(Libraries.fragmentKtx)
     implementation(Libraries.workManager)
     implementation(Libraries.workManagerKtx)
+    implementation(Libraries.security)
 
     // dependency injection
     implementation(Libraries.koinAndroid)
