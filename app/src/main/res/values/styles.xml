@@ -15,6 +15,10 @@
         <item name="android:textAppearance">@style/TextAppearance.InputField</item>
     </style>
 
+    <style name="Widget.App.Button.Dialog" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@drawable/color_on_background_65</item>
+    </style>
+
     <!-- Shape appearences -->
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamilyTopRight">cut</item>

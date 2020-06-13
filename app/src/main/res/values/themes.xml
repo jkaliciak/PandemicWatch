@@ -36,6 +36,12 @@
     <style name="ThemeOverlay.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.AlertDialog.Message
         </item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button.Dialog</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button.Dialog</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.Dialog</item>
+        <item name="shapeAppearanceMediumComponent">
+            @style/ShapeAppearance.MaterialComponents.MediumComponent
+        </item>
     </style>
 
 </resources>
