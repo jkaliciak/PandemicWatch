@@ -2,15 +2,11 @@ package dev.jakal.pandemicwatch.presentation.comparison.createcomparison
 
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.jakal.pandemicwatch.R
-import dev.jakal.pandemicwatch.databinding.FragmentComparisonBinding
 import dev.jakal.pandemicwatch.databinding.FragmentCreateComparisonBinding
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
 import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
@@ -73,9 +69,7 @@ class CreateComparisonFragment : Fragment() {
 
     private fun setupViews() {
         adapter = CountriesAdapter(
-            onClickListener = { _: String, _: ImageView, _: TextView, _: MaterialCardView ->
-                // nothing
-            },
+            onClickListener = null,
             sortingComparator = Comparator { c1, c2 ->
                 c1.country.compareTo(c2.country)
             }

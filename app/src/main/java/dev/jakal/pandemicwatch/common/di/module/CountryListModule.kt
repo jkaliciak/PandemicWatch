@@ -1,5 +1,6 @@
 package dev.jakal.pandemicwatch.common.di.module
 
+import androidx.lifecycle.SavedStateHandle
 import dev.jakal.pandemicwatch.domain.usecase.countrylist.LoadCountriesUseCase
 import dev.jakal.pandemicwatch.presentation.countrylist.CountryListFragment
 import dev.jakal.pandemicwatch.presentation.countrylist.CountryListViewModel
@@ -20,10 +21,11 @@ val countryListModule = module {
             )
         }
     }
-    viewModel { (scopeId: ScopeID) ->
+    viewModel { (handle: SavedStateHandle, scopeId: ScopeID) ->
         CountryListViewModel(
             getScope(scopeId).get(),
-            getScope(scopeId).get()
+            getScope(scopeId).get(),
+            handle
         )
     }
 }

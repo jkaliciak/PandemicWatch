@@ -15,7 +15,7 @@ import dev.jakal.pandemicwatch.domain.model.Country
 import dev.jakal.pandemicwatch.presentation.common.load
 
 class CountriesAdapter(
-    private val onClickListener: (countryName: String, ivCountryFlag: ImageView, tvCountryName: TextView, cardView: MaterialCardView) -> Unit,
+    private val onClickListener: ((countryName: String, ivCountryFlag: ImageView, tvCountryName: TextView, cardView: MaterialCardView) -> Unit)?,
     private val sortingComparator: Comparator<Country>? = null
 ) : ListAdapter<Country, CountryViewHolder>(CountryDiffCallback()), Filterable {
 
@@ -63,17 +63,19 @@ class CountriesAdapter(
 
 class CountryViewHolder(
     private val binding: ItemCountryBinding,
-    private val onClickListener: (countryName: String, ivCountryFlag: ImageView, tvCountryName: TextView, cardView: MaterialCardView) -> Unit
+    private val onClickListener: ((countryName: String, ivCountryFlag: ImageView, tvCountryName: TextView, cardView: MaterialCardView) -> Unit)?
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(country: Country) {
-        binding.root.setOnClickListener {
-            onClickListener(
-                country.country,
-                binding.ivCountryFlag,
-                binding.tvCountryName,
-                binding.cardView
-            )
+        onClickListener?.let { listener ->
+            binding.root.setOnClickListener {
+                listener(
+                    country.country,
+                    binding.ivCountryFlag,
+                    binding.tvCountryName,
+                    binding.cardView
+                )
+            }
         }
         binding.country = country
         binding.ivCountryFlag.load(country.countryInfo.flagUrl)
