@@ -11,7 +11,6 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Widget.App.Toolbar"
-            android:elevation="@dimen/elevation_default"
             android:layout_width="0dp"
             android:layout_height="?actionBarSize"
             app:layout_constraintTop_toTopOf="parent"

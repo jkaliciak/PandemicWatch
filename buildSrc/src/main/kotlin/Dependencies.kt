@@ -50,7 +50,7 @@ object Libraries {
         const val room = "2.2.5"
         const val krate = "0.4.0"
         const val chucker = "3.2.0"
-        const val leakCanary = "2.2"
+        const val leakCanary = "2.4"
         const val swipeRefresh = "1.1.0-rc01"
         const val glide = "4.11.0"
         const val navigation = "2.3.0-alpha06"
@@ -137,6 +137,7 @@ object Libraries {
     const val chucker = "com.github.ChuckerTeam.Chucker:library:${Versions.chucker}"
     const val chuckerNoOp = "com.github.ChuckerTeam.Chucker:library-no-op:${Versions.chucker}"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
+    const val leakCanaryPlumber = "com.squareup.leakcanary:plumber-android:${Versions.leakCanary}"
 }
 
 object TestLibraries {

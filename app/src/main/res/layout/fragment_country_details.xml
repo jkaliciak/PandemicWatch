@@ -42,7 +42,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
                     android:transitionName="@{@string/transition_country_cardview(viewmodel.country.country)}"
-                    app:cardElevation="@dimen/elevation_default"
                     app:cardPreventCornerOverlap="false"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="8dp">
@@ -59,7 +58,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
-                    app:cardElevation="@dimen/elevation_default"
                     app:cardPreventCornerOverlap="false"
                     app:isVisible="@{!viewmodel.initializing}"
                     app:layout_constraintTop_toBottomOf="@+id/cvRecoveredChart">
@@ -75,7 +73,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
-                    app:cardElevation="@dimen/elevation_default"
                     app:cardPreventCornerOverlap="false"
                     app:layout_constraintTop_toBottomOf="@+id/cvTotal"
                     app:isVisible="@{!viewmodel.initializing}">
@@ -92,7 +89,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
-                    app:cardElevation="@dimen/elevation_default"
                     app:cardPreventCornerOverlap="false"
                     app:isVisible="@{!viewmodel.initializing}"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -111,7 +107,6 @@
                     android:layout_height="@dimen/defaultChartHeight"
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    app:cardElevation="@dimen/elevation_default"
                     app:cardPreventCornerOverlap="false"
                     app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistory != null}"
                     app:layout_constraintTop_toBottomOf="@+id/cvCountryInfo"
@@ -129,7 +124,6 @@
                     android:layout_height="@dimen/defaultChartHeight"
                     android:layout_margin="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
-                    app:cardElevation="@dimen/elevation_default"
                     app:cardPreventCornerOverlap="false"
                     app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistory != null}"
                     app:layout_constraintTop_toBottomOf="@+id/cvCasesChart">
@@ -145,7 +139,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/defaultChartHeight"
                     android:layout_margin="@dimen/spacing_medium"
-                    app:cardElevation="@dimen/elevation_default"
                     app:cardPreventCornerOverlap="false"
                     app:isVisible="@{!viewmodel.initializing &amp;&amp; viewmodel.countryHistory != null}"
                     app:layout_constraintTop_toBottomOf="@+id/cvDeathsChart"

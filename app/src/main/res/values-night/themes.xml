@@ -16,7 +16,6 @@
         <item name="colorOnSurface">@color/white</item>
         <item name="android:colorBackground">@color/mineShaftLight</item>
         <item name="colorOnBackground">@color/white</item>
-        <item name="colorAccent">@color/guardsmanRed</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.AlertDialog</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent

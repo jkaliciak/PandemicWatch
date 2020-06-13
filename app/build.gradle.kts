@@ -140,6 +140,7 @@ dependencies {
     debugImplementation(Libraries.chucker)
     releaseImplementation(Libraries.chuckerNoOp)
     debugImplementation(Libraries.leakCanary)
+    debugImplementation(Libraries.leakCanaryPlumber)
 
     // test
     testImplementation(TestLibraries.junit4)
