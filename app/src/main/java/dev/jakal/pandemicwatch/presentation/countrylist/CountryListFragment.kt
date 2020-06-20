@@ -2,14 +2,13 @@ package dev.jakal.pandemicwatch.presentation.countrylist
 
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.card.MaterialCardView
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.transition.Hold
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentCountryListBinding
 import dev.jakal.pandemicwatch.presentation.common.KeyboardHelper
@@ -40,6 +39,7 @@ class CountryListFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         setHasOptionsMenu(true)
+        exitTransition = Hold()
     }
 
     override fun onCreateView(
@@ -93,14 +93,10 @@ class CountryListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = CountriesAdapter(
-            onClickListener = { countryName: String, ivCountryFlag: ImageView, tvCountryName: TextView, cardView: MaterialCardView ->
+            onClickListener = { countryName, constraintLayout ->
                 findNavController().navigate(
                     CountryListFragmentDirections.showCountry(countryName),
-                    FragmentNavigatorExtras(
-                        ivCountryFlag to ivCountryFlag.transitionName,
-                        tvCountryName to tvCountryName.transitionName,
-                        cardView to cardView.transitionName
-                    )
+                    FragmentNavigatorExtras(constraintLayout to constraintLayout.transitionName)
                 )
             },
             sortingComparator = FavoriteCountriesComparator()
@@ -108,6 +104,7 @@ class CountryListFragment : Fragment() {
         postponeEnterTransition()
         binding.rvCountries.apply {
             addItemDecoration(SpacingItemDecoration(resources.getDimensionPixelOffset(R.dimen.spacing_medium)))
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = this@CountryListFragment.adapter
             viewTreeObserver.addOnPreDrawListener(onPreDrawListener)
             addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {

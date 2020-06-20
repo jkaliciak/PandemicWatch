@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="transition_country_flag">transition_country_flag_%s</string>
-    <string name="transition_country_name">transition_country_name_%s</string>
-    <string name="transition_country_cardview">transition_country_cardview_%s</string>
+    <string name="transition_country">transition_country_%s</string>
 </resources>

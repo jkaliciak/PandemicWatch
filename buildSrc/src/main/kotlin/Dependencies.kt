@@ -30,7 +30,8 @@ object Libraries {
     private object Versions {
         const val kotlinCoroutines = "1.3.7"
         const val appCompat = "1.1.0"
-        const val material = "1.2.0-alpha04"
+        const val material = "1.3.0-alpha01"
+//        const val material = "1.2.0-beta01"
         const val constraintLayout = "1.1.3"
         const val coreKtx = "1.1.0"
         const val lifecycleExtensions = "2.2.0"

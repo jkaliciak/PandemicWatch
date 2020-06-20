@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.transition.TransitionInflater
+import com.google.android.material.transition.MaterialContainerTransform
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentCountryDetailsBinding
 import dev.jakal.pandemicwatch.presentation.common.chart.setupChart
@@ -37,6 +37,8 @@ class CountryDetailsFragment : Fragment() {
 
         postponeEnterTransition()
         setHasOptionsMenu(true)
+
+        sharedElementEnterTransition = MaterialContainerTransform()
     }
 
     override fun onCreateView(
@@ -56,8 +58,6 @@ class CountryDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
         binding.executePendingBindings()

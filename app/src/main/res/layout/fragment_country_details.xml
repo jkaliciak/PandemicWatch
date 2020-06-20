@@ -23,7 +23,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="?attr/android:colorBackground"
+                android:transitionName="@{@string/transition_country(viewmodel.country.country)}">
 
                 <include
                     android:id="@+id/include"
@@ -41,7 +43,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
-                    android:transitionName="@{@string/transition_country_cardview(viewmodel.country.country)}"
                     app:cardPreventCornerOverlap="false"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="8dp">
@@ -74,8 +75,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
                     app:cardPreventCornerOverlap="false"
-                    app:layout_constraintTop_toBottomOf="@+id/cvTotal"
-                    app:isVisible="@{!viewmodel.initializing}">
+                    app:isVisible="@{!viewmodel.initializing}"
+                    app:layout_constraintTop_toBottomOf="@+id/cvTotal">
 
                     <include
                         layout="@layout/content_country_today"

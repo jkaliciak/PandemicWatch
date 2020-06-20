@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentCreateComparisonBinding
@@ -77,6 +78,7 @@ class CreateComparisonFragment : Fragment() {
 
         binding.rvCountries.apply {
             addItemDecoration(SpacingItemDecoration(resources.getDimensionPixelOffset(R.dimen.spacing_medium)))
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = this@CreateComparisonFragment.adapter
             setupSwipeDelete(this@CreateComparisonFragment.adapter) { deletedCountryName ->
                 viewModel.removeCountryFromComparison(deletedCountryName)
@@ -104,7 +106,7 @@ class CreateComparisonFragment : Fragment() {
     }
 
     private fun showResetComparisonDialog() {
-        MaterialAlertDialogBuilder(context)
+        MaterialAlertDialogBuilder(requireContext())
             .setMessage(R.string.create_comparison_reset_dialog_message)
             .setPositiveButton(R.string.alert_dialog_positive_button) { _, _ ->
                 viewModel.resetComparisonCountries()

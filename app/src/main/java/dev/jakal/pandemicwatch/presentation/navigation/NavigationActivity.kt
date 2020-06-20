@@ -1,6 +1,7 @@
 package dev.jakal.pandemicwatch.presentation.navigation
 
 import android.os.Bundle
+import android.transition.Fade
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity

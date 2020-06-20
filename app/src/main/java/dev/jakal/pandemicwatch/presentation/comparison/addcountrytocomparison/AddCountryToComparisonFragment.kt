@@ -2,13 +2,10 @@ package dev.jakal.pandemicwatch.presentation.comparison.addcountrytocomparison
 
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.card.MaterialCardView
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentAddCountryToComparisonBinding
 import dev.jakal.pandemicwatch.presentation.common.KeyboardHelper
@@ -83,7 +80,7 @@ class AddCountryToComparisonFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter =
             CountriesAdapter(
-                onClickListener = { countryName: String, _: ImageView, _: TextView, _: MaterialCardView ->
+                onClickListener = { countryName, _ ->
                     viewModel.addCountryToComparison(countryName)
                     findNavController().popBackStack()
                 },
