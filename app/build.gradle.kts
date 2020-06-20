@@ -102,6 +102,7 @@ dependencies {
     implementation(Libraries.fragmentKtx)
     implementation(Libraries.workManager)
     implementation(Libraries.workManagerKtx)
+    implementation(Libraries.security)
 
     // dependency injection
     implementation(Libraries.koinAndroid)
@@ -140,6 +141,7 @@ dependencies {
     debugImplementation(Libraries.chucker)
     releaseImplementation(Libraries.chuckerNoOp)
     debugImplementation(Libraries.leakCanary)
+    debugImplementation(Libraries.leakCanaryPlumber)
 
     // test
     testImplementation(TestLibraries.junit4)

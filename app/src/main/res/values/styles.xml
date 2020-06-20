@@ -1,31 +1,8 @@
 <resources>
-    <style name="Theme.App" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
-        <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <item name="colorError">@color/colorError</item>
-        <item name="colorOnError">@color/colorOnError</item>
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="colorOnSurface">@color/colorOnSurface</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
-        <item name="colorOnBackground">@color/colorOnBackground</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.AlertDialog</item>
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
-        </item>
-        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
-        <item name="autoCompleteTextViewStyle">@style/Widget.App.AutoCompleteTextView</item>
-    </style>
 
     <!-- Widget styles -->
-    <style name="Widget.App.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
+    <style name="Widget.App.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:elevation">@dimen/elevation_medium</item>
         <item name="android:theme">@style/ThemeOverlay.App.Toolbar</item>
         <item name="titleTextAppearance">@style/TextAppearance.Title</item>
     </style>
@@ -33,23 +10,13 @@
     <style name="Widget.App.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView.Colored"></style>
 
     <style name="Widget.App.AutoCompleteTextView" parent="Widget.AppCompat.AutoCompleteTextView">
-        <item name="android:textColorHint">@drawable/color_on_primary_alpha_65</item>
+        <item name="android:textColorHint">@drawable/color_on_primary_65</item>
         <item name="android:textCursorDrawable">@drawable/cursor</item>
         <item name="android:textAppearance">@style/TextAppearance.InputField</item>
     </style>
 
-    <!-- Overlays -->
-    <style name="ThemeOverlay.App.Toolbar" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
-        <item name="popupTheme">@style/ThemeOverlay.App.Toolbar.PopupTheme</item>
-    </style>
-
-    <style name="ThemeOverlay.App.Toolbar.PopupTheme" parent="">
-        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
-    </style>
-
-    <style name="ThemeOverlay.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.AlertDialog.Message
-        </item>
+    <style name="Widget.App.Button.Dialog" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@drawable/color_on_background_65</item>
     </style>
 
     <!-- Shape appearences -->
@@ -113,6 +80,6 @@
     </style>
 
     <style name="TextAppearance.AlertDialog.Message" parent="">
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
     </style>
 </resources>

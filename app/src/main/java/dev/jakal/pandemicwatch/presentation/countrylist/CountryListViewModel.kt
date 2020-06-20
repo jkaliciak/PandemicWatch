@@ -1,25 +1,27 @@
 package dev.jakal.pandemicwatch.presentation.countrylist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dev.jakal.pandemicwatch.domain.model.toPresentation
 import dev.jakal.pandemicwatch.domain.result.Result
 import dev.jakal.pandemicwatch.domain.result.onError
-import dev.jakal.pandemicwatch.domain.usecase.countrylist.LoadCountriesUseCase
 import dev.jakal.pandemicwatch.domain.usecase.common.UpdateCountriesUseCase
+import dev.jakal.pandemicwatch.domain.usecase.countrylist.LoadCountriesUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CountryListViewModel(
     private val updateCountryListUseCase: UpdateCountriesUseCase,
-    private val loadCountriesUseCase: LoadCountriesUseCase
+    private val loadCountriesUseCase: LoadCountriesUseCase,
+    private val handle: SavedStateHandle
 ) : ViewModel() {
 
     val countries: LiveData<CountryListPresentation>
         get() = _countries
     private val _countries = MutableLiveData<CountryListPresentation>()
+
+    val searchQuery: LiveData<String?>
+        get() = _searchQuery
+    private val _searchQuery = handle.getLiveData<String?>(KEY_SEARCH_QUERY)
 
     val refreshing: LiveData<Boolean>
         get() = _refreshing
@@ -56,7 +58,15 @@ class CountryListViewModel(
         }
     }
 
+    internal fun search(query: String?) {
+        handle.set(KEY_SEARCH_QUERY, query)
+    }
+
     private fun handleError(throwable: Exception) {
         // TODO handle ui error indication
+    }
+
+    companion object {
+        private const val KEY_SEARCH_QUERY = "key_search_query"
     }
 }

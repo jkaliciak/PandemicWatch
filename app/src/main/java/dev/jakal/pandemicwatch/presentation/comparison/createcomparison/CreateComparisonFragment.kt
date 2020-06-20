@@ -2,25 +2,23 @@ package dev.jakal.pandemicwatch.presentation.comparison.createcomparison
 
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.card.MaterialCardView
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentCreateComparisonBinding
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
-import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
 import dev.jakal.pandemicwatch.presentation.common.adapter.setupSwipeDelete
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class CreateComparisonFragment : Fragment() {
 
-    private val viewModel: ComparisonViewModel by sharedViewModel()
-    private lateinit var binding: FragmentCreateComparisonBinding
+    private val viewModel: ComparisonViewModel by stateViewModel()
+    private val binding get() = _binding!!
+    private var _binding: FragmentCreateComparisonBinding? = null
     private lateinit var adapter: CountriesAdapter
     private var addToComparisonMenuItem: MenuItem? = null
     private var resetComparison: MenuItem? = null
@@ -36,8 +34,13 @@ class CreateComparisonFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCreateComparisonBinding.inflate(inflater, container, false)
+        _binding = FragmentCreateComparisonBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,16 +69,14 @@ class CreateComparisonFragment : Fragment() {
 
     private fun setupViews() {
         adapter = CountriesAdapter(
-            onClickListener = { _: String, _: ImageView, _: TextView, _: MaterialCardView ->
-                // nothing
-            },
+            onClickListener = null,
             sortingComparator = Comparator { c1, c2 ->
                 c1.country.compareTo(c2.country)
             }
         )
 
         binding.rvCountries.apply {
-            addItemDecoration(SpacingItemDecoration(resources.getDimensionPixelOffset(R.dimen.spacing_medium)))
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = this@CreateComparisonFragment.adapter
             setupSwipeDelete(this@CreateComparisonFragment.adapter) { deletedCountryName ->
                 viewModel.removeCountryFromComparison(deletedCountryName)
@@ -103,7 +104,7 @@ class CreateComparisonFragment : Fragment() {
     }
 
     private fun showResetComparisonDialog() {
-        MaterialAlertDialogBuilder(context)
+        MaterialAlertDialogBuilder(requireContext())
             .setMessage(R.string.create_comparison_reset_dialog_message)
             .setPositiveButton(R.string.alert_dialog_positive_button) { _, _ ->
                 viewModel.resetComparisonCountries()

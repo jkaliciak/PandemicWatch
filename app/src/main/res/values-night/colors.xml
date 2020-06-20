@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorChartCaseBackground">@color/endeavour</color>
+    <color name="colorChartCaseOnBackground">@color/white</color>
+    <color name="colorChartCaseForeground">@color/jacksonsPurple</color>
+    <color name="colorChartCaseOnForeground">@color/white</color>
+
+    <color name="colorChartDeathBackground">@color/seance</color>
+    <color name="colorChartDeathOnBackground">@color/white</color>
+    <color name="colorChartDeathForeground">@color/christalle</color>
+    <color name="colorChartDeathOnForeground">@color/white</color>
+
+    <color name="colorChartRecoveredBackground">@color/funGreen</color>
+    <color name="colorChartRecoveredOnBackground">@color/white</color>
+    <color name="colorChartRecoveredForeground">@color/crusoe</color>
+    <color name="colorChartRecoveredOnForeground">@color/white</color>
+
+    <color name="colorChartComparison1">@color/persianRed</color>
+    <color name="colorChartComparison2">@color/frenchRose</color>
+    <color name="colorChartComparison3">@color/gorse</color>
+    <color name="colorChartComparison4">@color/jacksonsPurple</color>
+    <color name="colorChartOnForeground">@color/white</color>
+</resources>

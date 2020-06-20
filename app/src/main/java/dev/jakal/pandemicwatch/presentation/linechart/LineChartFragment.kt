@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import dev.jakal.pandemicwatch.databinding.FragmentCountryListBinding
 import dev.jakal.pandemicwatch.databinding.FragmentLineChartBinding
 import dev.jakal.pandemicwatch.presentation.common.chart.setupChart
 import org.koin.androidx.scope.lifecycleScope
@@ -23,15 +24,21 @@ class LineChartFragment : Fragment() {
             args.lineDataConfig
         )
     }
-    private lateinit var binding: FragmentLineChartBinding
+    private val binding get() = _binding!!
+    private var _binding: FragmentLineChartBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLineChartBinding.inflate(inflater, container, false)
+        _binding = FragmentLineChartBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

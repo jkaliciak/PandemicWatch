@@ -15,20 +15,26 @@ import dev.jakal.pandemicwatch.presentation.common.chart.toRecoveredLineDataConf
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
 import dev.jakal.pandemicwatch.presentation.countrydetails.CountryDetailsFragmentDirections
 import dev.jakal.pandemicwatch.presentation.linechart.LineChartConfig
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class ComparisonFragment : Fragment() {
 
-    private val viewModel: ComparisonViewModel by sharedViewModel()
-    private lateinit var binding: FragmentComparisonBinding
+    private val viewModel: ComparisonViewModel by stateViewModel()
+    private val binding get() = _binding!!
+    private var _binding: FragmentComparisonBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentComparisonBinding.inflate(inflater, container, false)
+        _binding = FragmentComparisonBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

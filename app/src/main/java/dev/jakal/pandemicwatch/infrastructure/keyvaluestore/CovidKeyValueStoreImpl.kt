@@ -2,10 +2,14 @@ package dev.jakal.pandemicwatch.infrastructure.keyvaluestore
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.squareup.moshi.Moshi
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalHistoryEntity
 import dev.jakal.pandemicwatch.infrastructure.keyvaluestore.model.GlobalStatsEntity
 import hu.autsoft.krate.Krate
+import hu.autsoft.krate.intPref
 import hu.autsoft.krate.moshi.moshi
 import hu.autsoft.krate.moshi.moshiPref
 import hu.autsoft.krate.stringSetPref
@@ -81,13 +85,18 @@ class CovidKeyValueStoreImpl(
     override val comparisonCountriesObservable: Flow<Set<String>>
         get() = comparisonCountriesStateFlow
 
+    override var nightMode: Int by intPref("key_nightmode", AppCompatDelegate.getDefaultNightMode())
+
     override val sharedPreferences: SharedPreferences
 
     init {
         this.moshi = moshi
-        sharedPreferences = context.applicationContext.getSharedPreferences(
-            "covid_prefs",
-            Context.MODE_PRIVATE
+        sharedPreferences = EncryptedSharedPreferences.create(
+            "sec_prefs",
+            MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+            context.applicationContext,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
         globalStatsStateFlow.value = globalStats
         globalHistoryStateFlow.value = globalHistory

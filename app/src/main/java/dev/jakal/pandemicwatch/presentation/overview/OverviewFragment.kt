@@ -20,15 +20,21 @@ import org.koin.core.parameter.parametersOf
 class OverviewFragment : Fragment() {
 
     private val viewModel: OverviewViewModel by viewModel { parametersOf(lifecycleScope.id) }
-    private lateinit var binding: FragmentOverviewBinding
+    private val binding get() = _binding!!
+    private var _binding: FragmentOverviewBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentOverviewBinding.inflate(inflater, container, false)
+        _binding = FragmentOverviewBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

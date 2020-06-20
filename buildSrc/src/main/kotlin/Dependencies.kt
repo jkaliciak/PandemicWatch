@@ -30,7 +30,8 @@ object Libraries {
     private object Versions {
         const val kotlinCoroutines = "1.3.7"
         const val appCompat = "1.1.0"
-        const val material = "1.2.0-alpha04"
+        const val material = "1.3.0-alpha01"
+//        const val material = "1.2.0-beta01"
         const val constraintLayout = "1.1.3"
         const val coreKtx = "1.1.0"
         const val lifecycleExtensions = "2.2.0"
@@ -50,13 +51,14 @@ object Libraries {
         const val room = "2.2.5"
         const val krate = "0.4.0"
         const val chucker = "3.2.0"
-        const val leakCanary = "2.2"
+        const val leakCanary = "2.4"
         const val swipeRefresh = "1.1.0-rc01"
         const val glide = "4.11.0"
         const val navigation = "2.3.0-alpha06"
         const val fragment = "1.3.0-alpha04"
         const val mpAndroidChart = "v3.1.0"
         const val workManager = "2.3.4"
+        const val security = "1.0.0-rc02"
     }
 
     // jetbrains
@@ -96,6 +98,7 @@ object Libraries {
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragment}"
     const val workManager = "androidx.work:work-runtime:${Versions.workManager}"
     const val workManagerKtx = "androidx.work:work-runtime-ktx:${Versions.workManager}"
+    const val security = "androidx.security:security-crypto:${Versions.security}"
 
     // dependency injection
     const val koinAndroid = "org.koin:koin-android:${Versions.koin}"
@@ -137,6 +140,7 @@ object Libraries {
     const val chucker = "com.github.ChuckerTeam.Chucker:library:${Versions.chucker}"
     const val chuckerNoOp = "com.github.ChuckerTeam.Chucker:library-no-op:${Versions.chucker}"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
+    const val leakCanaryPlumber = "com.squareup.leakcanary:plumber-android:${Versions.leakCanary}"
 }
 
 object TestLibraries {

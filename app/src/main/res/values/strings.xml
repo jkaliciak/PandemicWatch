@@ -19,6 +19,14 @@
     <string name="screen_title_add_country_to_comparison">Select country</string>
     <string name="screen_title_comparison">Comparison</string>
 
+    <!--  Navigation screen  -->
+    <string name="menu_item_select_theme">Choose theme</string>
+    <string name="select_theme_dialog_title">Choose theme</string>
+    <string name="select_theme_dialog_item_light">Light</string>
+    <string name="select_theme_dialog_item_dark">Dark</string>
+    <string name="select_theme_dialog_item_follow_system">System default</string>
+    <string name="select_theme_dialog_item_auto_battery">Set by Battery Saver</string>
+
     <!-- Overview screen -->
     <string name="overview_updated_label">Updated:</string>
     <string name="overview_affected_countries_label">Affected countries:</string>

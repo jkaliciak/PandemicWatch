@@ -32,7 +32,6 @@
             android:layout_marginEnd="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_medium"
             android:src="@drawable/ic_add_24"
-            app:elevation="@dimen/elevation_default"
             app:isVisible="@{viewmodel.comparison.comparisonCountries.size() &lt; 4}"
             app:layout_constraintBottom_toTopOf="@+id/fabCompare"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -44,7 +43,6 @@
             android:layout_marginEnd="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_medium"
             android:src="@drawable/ic_forward_24"
-            app:elevation="@dimen/elevation_default"
             app:isVisible="@{viewmodel.comparison.comparisonCountries.size() &gt; 1}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

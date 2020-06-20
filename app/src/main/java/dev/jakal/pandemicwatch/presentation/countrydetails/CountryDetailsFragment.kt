@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.transition.TransitionInflater
+import com.google.android.material.transition.MaterialContainerTransform
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentCountryDetailsBinding
 import dev.jakal.pandemicwatch.presentation.common.chart.setupChart
@@ -27,7 +27,8 @@ class CountryDetailsFragment : Fragment() {
             args.countryName
         )
     }
-    private lateinit var binding: FragmentCountryDetailsBinding
+    private val binding get() = _binding!!
+    private var _binding: FragmentCountryDetailsBinding? = null
     private var addToFavoritesMenuItem: MenuItem? = null
     private var removeFromFavoritesMenuItem: MenuItem? = null
 
@@ -36,6 +37,8 @@ class CountryDetailsFragment : Fragment() {
 
         postponeEnterTransition()
         setHasOptionsMenu(true)
+
+        sharedElementEnterTransition = MaterialContainerTransform()
     }
 
     override fun onCreateView(
@@ -43,15 +46,18 @@ class CountryDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCountryDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentCountryDetailsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
         binding.executePendingBindings()
