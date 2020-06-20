@@ -8,13 +8,14 @@
         <variable
             name="country"
             type="dev.jakal.pandemicwatch.domain.model.Country" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_item"
+        android:padding="@dimen/spacing_medium"
         android:transitionName="@{@string/transition_country(country.country)}">
 
         <ImageView

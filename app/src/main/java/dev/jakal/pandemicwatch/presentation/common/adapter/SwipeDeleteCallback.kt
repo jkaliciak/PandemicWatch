@@ -4,8 +4,10 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.ColorDrawable
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -52,9 +54,9 @@ abstract class SwipeDeleteCallback(
                 iconDrawable.setBounds(iconLeft, iconTop, iconRight, iconBottom)
                 backgroundDrawable.setBounds(
                     itemView.left - itemView.marginLeft,
-                    itemView.top,
+                    itemView.top - itemView.marginTop,
                     itemView.left + dX.toInt() + backgroundCornerOffset - itemView.marginLeft,
-                    itemView.bottom
+                    itemView.bottom + itemView.marginBottom
                 )
             }
             dX < 0 -> {
@@ -63,12 +65,13 @@ abstract class SwipeDeleteCallback(
                 iconDrawable.setBounds(iconLeft, iconTop, iconRight, iconBottom)
                 backgroundDrawable.setBounds(
                     itemView.right + dX.toInt() - backgroundCornerOffset + itemView.marginLeft,
-                    itemView.top,
+                    itemView.top - itemView.marginTop,
                     itemView.right + itemView.marginRight,
-                    itemView.bottom
+                    itemView.bottom + itemView.marginBottom
                 )
             }
             else -> {
+                iconDrawable.setBounds(0, 0, 0, 0)
                 backgroundDrawable.setBounds(0, 0, 0, 0)
             }
         }

@@ -10,7 +10,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentCreateComparisonBinding
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
-import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
 import dev.jakal.pandemicwatch.presentation.common.adapter.setupSwipeDelete
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
@@ -77,7 +76,6 @@ class CreateComparisonFragment : Fragment() {
         )
 
         binding.rvCountries.apply {
-            addItemDecoration(SpacingItemDecoration(resources.getDimensionPixelOffset(R.dimen.spacing_medium)))
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = this@CreateComparisonFragment.adapter
             setupSwipeDelete(this@CreateComparisonFragment.adapter) { deletedCountryName ->

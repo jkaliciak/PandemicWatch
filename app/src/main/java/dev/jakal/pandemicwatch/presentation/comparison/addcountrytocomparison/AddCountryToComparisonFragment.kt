@@ -6,11 +6,11 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import dev.jakal.pandemicwatch.R
 import dev.jakal.pandemicwatch.databinding.FragmentAddCountryToComparisonBinding
 import dev.jakal.pandemicwatch.presentation.common.KeyboardHelper
 import dev.jakal.pandemicwatch.presentation.common.adapter.CountriesAdapter
-import dev.jakal.pandemicwatch.presentation.common.adapter.SpacingItemDecoration
 import dev.jakal.pandemicwatch.presentation.comparison.ComparisonViewModel
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
@@ -78,19 +78,17 @@ class AddCountryToComparisonFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter =
-            CountriesAdapter(
-                onClickListener = { countryName, _ ->
-                    viewModel.addCountryToComparison(countryName)
-                    findNavController().popBackStack()
-                },
-                sortingComparator = Comparator { c1, c2 ->
-                    c1.country.compareTo(c2.country)
-                }
-            )
-
+        adapter = CountriesAdapter(
+            onClickListener = { countryName, _ ->
+                viewModel.addCountryToComparison(countryName)
+                findNavController().popBackStack()
+            },
+            sortingComparator = Comparator { c1, c2 ->
+                c1.country.compareTo(c2.country)
+            }
+        )
         binding.rvCountries.apply {
-            addItemDecoration(SpacingItemDecoration(resources.getDimensionPixelOffset(R.dimen.spacing_medium)))
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = this@AddCountryToComparisonFragment.adapter
         }
     }
